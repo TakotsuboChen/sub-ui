@@ -1,7 +1,7 @@
 import { Check, Palette, X } from 'lucide-react'
 import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
-import { type ThemeMode, type ThemePreset, type ThemeRadius, useAppStore } from '@/stores/app-store'
+import { type ThemeMode, type ThemePreset, type ThemeRadius, type ThemeScale, useAppStore } from '@/stores/app-store'
 
 const PRESETS: { id: ThemePreset; label: string; dot: string }[] = [
   { id: 'default', label: '默认海蓝', dot: 'oklch(0.56 0.19 253)' },
@@ -11,8 +11,24 @@ const PRESETS: { id: ThemePreset; label: string; dot: string }[] = [
   { id: 'rose-garden', label: '玫瑰绯红', dot: 'oklch(0.583 0.235 12.23)' },
 ]
 
+const SCALES: { id: ThemeScale; label: string }[] = [
+  { id: 'sm', label: '紧凑' },
+  { id: 'default', label: '标准' },
+  { id: 'lg', label: '舒适' },
+  { id: 'xl', label: '大号' },
+]
+
 export function ConfigDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const { themeMode, themePreset, themeRadius, setThemeMode, setThemePreset, setThemeRadius } = useAppStore()
+  const {
+    themeMode,
+    themePreset,
+    themeRadius,
+    themeScale,
+    setThemeMode,
+    setThemePreset,
+    setThemeRadius,
+    setThemeScale,
+  } = useAppStore()
 
   if (!open) return null
 
@@ -34,7 +50,7 @@ export function ConfigDrawer({ open, onClose }: { open: boolean; onClose: () => 
 
         <div className='space-y-6 overflow-y-auto'>
           <div>
-            <p className='text-muted-foreground mb-2 text-xs font-medium'>明暗模式</p>
+            <p className='text-muted-foreground mb-2 text-sm font-medium'>明暗模式</p>
             <div className='grid grid-cols-3 gap-2'>
               {(
                 [
@@ -60,14 +76,14 @@ export function ConfigDrawer({ open, onClose }: { open: boolean; onClose: () => 
           </div>
 
           <div>
-            <p className='text-muted-foreground mb-2 text-xs font-medium'>主题色板 (OKLCH Presets)</p>
+            <p className='text-muted-foreground mb-2 text-sm font-medium'>主题色板 (OKLCH Presets)</p>
             <div className='space-y-2'>
               {PRESETS.map((p) => (
                 <button
                   key={p.id}
                   onClick={() => setThemePreset(p.id)}
                   className={cn(
-                    'flex w-full items-center justify-between rounded-lg border px-3 py-2 text-xs font-medium transition',
+                    'flex w-full items-center justify-between rounded-lg border px-3 py-2 text-sm font-medium transition',
                     themePreset === p.id
                       ? 'border-primary bg-primary/10 text-foreground'
                       : 'hover:bg-accent'
@@ -84,7 +100,25 @@ export function ConfigDrawer({ open, onClose }: { open: boolean; onClose: () => 
           </div>
 
           <div>
-            <p className='text-muted-foreground mb-2 text-xs font-medium'>组件圆角尺寸</p>
+            <p className='text-muted-foreground mb-2 text-sm font-medium'>界面字号缩放</p>
+            <div className='grid grid-cols-4 gap-2'>
+              {SCALES.map((s) => (
+                <button
+                  key={s.id}
+                  onClick={() => setThemeScale(s.id)}
+                  className={cn(
+                    'rounded-md border px-2 py-2 text-xs font-medium transition',
+                    themeScale === s.id ? 'border-primary bg-primary/10 text-primary' : 'hover:bg-accent'
+                  )}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className='text-muted-foreground mb-2 text-sm font-medium'>组件圆角尺寸</p>
             <div className='grid grid-cols-5 gap-1.5'>
               {(['none', 'sm', 'md', 'lg', 'xl'] as ThemeRadius[]).map((r) => (
                 <button

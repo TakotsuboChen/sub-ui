@@ -156,7 +156,7 @@ export function AdminNodesPage() {
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
           <h2 className='text-xl font-semibold tracking-tight'>S-UI 节点集群</h2>
-          <p className='text-muted-foreground text-xs'>
+          <p className='text-muted-foreground text-sm'>
             对接多台远端 S-UI `/apiv2` 控制接口；支持 API 请求代理、独立计费倍率及已有客户端一键纳管
           </p>
         </div>

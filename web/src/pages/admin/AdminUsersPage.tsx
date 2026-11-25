@@ -115,7 +115,7 @@ export function AdminUsersPage() {
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
           <h2 className='text-xl font-semibold tracking-tight'>用户与跨节点凭证管理</h2>
-          <p className='text-muted-foreground text-xs'>管理用户限额、到期时间、手动重置周期流量及一键向多台 S-UI 节点下发客户端</p>
+          <p className='text-muted-foreground text-sm'>管理用户限额、到期时间、手动重置周期流量及一键向多台 S-UI 节点下发客户端</p>
         </div>
         <div className='flex gap-2'>
           <Input
@@ -136,7 +136,7 @@ export function AdminUsersPage() {
 
       <Card>
         <CardContent className='overflow-x-auto pt-4'>
-          <table className='w-full text-left text-xs'>
+          <table className='w-full text-left text-sm'>
             <thead className='text-muted-foreground border-b'>
               <tr>
                 <th className='py-2 font-medium'>用户</th>

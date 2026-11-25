@@ -129,7 +129,7 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
           <h2 className='text-xl font-semibold tracking-tight'>订阅工作台概览</h2>
-          <p className='text-muted-foreground text-xs'>实时聚合多节点流量消耗、到期周期与带密钥的专属订阅分发</p>
+          <p className='text-muted-foreground text-sm'>实时聚合多节点流量消耗、到期周期与带密钥的专属订阅分发</p>
         </div>
         <div className='flex items-center gap-2'>
           <Button variant='outline' size='sm' onClick={() => void load()}>
@@ -231,7 +231,7 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
         </CardHeader>
         <CardContent className='space-y-3'>
           <div className='bg-muted/60 flex flex-wrap items-center justify-between gap-2 rounded-lg border px-3 py-2.5'>
-            <code className='font-mono text-xs break-all'>{subUrl}</code>
+            <code className='font-mono text-sm break-all'>{subUrl}</code>
             <Button size='sm' variant='secondary' onClick={() => void handleCopy('通用自适应链接', subUrl)}>
               {copied === '通用自适应链接' ? <Check className='size-3.5' /> : <Copy className='size-3.5' />}
               复制链接
@@ -379,7 +379,7 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
             {resetHistory.length === 0 ? (
               <div className='text-muted-foreground py-6 text-center text-xs'>暂无周期重置历史</div>
             ) : (
-              <div className='space-y-2 text-xs'>
+              <div className='space-y-2 text-sm'>
                 {resetHistory.map((r) => (
                   <div key={r.id} className='flex items-center justify-between rounded-md border px-3 py-2'>
                     <div>

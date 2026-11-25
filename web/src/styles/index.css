@@ -1,7 +1,5 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@import '@fontsource-variable/inter';
-@import '@fontsource-variable/jetbrains-mono';
 @import './theme.css';
 @import './theme-presets.css';
 
@@ -12,10 +10,7 @@
     scrollbar-color: var(--border) transparent;
   }
   html {
-    @apply overflow-x-hidden font-sans antialiased;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
+    @apply overflow-x-hidden font-sans;
   }
   body {
     @apply bg-background text-foreground min-h-svh w-full;

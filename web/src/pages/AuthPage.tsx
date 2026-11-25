@@ -83,11 +83,11 @@ export function AuthPage() {
 
       <div className='relative mx-auto grid w-full max-w-4xl items-center gap-8 lg:grid-cols-2'>
         <div className='space-y-5'>
-          <div className='flex items-center gap-2.5'>
+          <div className='flex items-center gap-3'>
             <BrandLogo size='lg' />
             <div>
               <h1 className='text-2xl font-bold tracking-tight'>{meta?.siteName || 'Sub-UI'}</h1>
-              <p className='text-muted-foreground text-xs'>S-UI 订阅聚合 · 分流引擎 · 分布式配额控制</p>
+              <p className='text-muted-foreground text-sm'>S-UI 订阅聚合 · 分流引擎 · 分布式配额控制</p>
             </div>
           </div>
 
@@ -96,14 +96,14 @@ export function AuthPage() {
               '集中部署控制面，无缝同步多台远端 S-UI 节点增量流量、全局配额熔断与周期重置，支持 ACL4SSR 全分组与个人规则覆盖。'}
           </p>
 
-          <div className='grid grid-cols-2 gap-3 text-xs'>
-            <div className='bg-card rounded-lg border p-3'>
+          <div className='grid grid-cols-2 gap-3 text-sm'>
+            <div className='bg-card rounded-lg border p-3.5'>
               <div className='font-semibold'>多节点零中转聚合</div>
-              <p className='text-muted-foreground mt-1'>客户端直连各数据面 S-UI 节点，控制面定时增量同步流量与会话踢出。</p>
+              <p className='text-muted-foreground mt-1 text-xs leading-relaxed'>客户端直连各数据面 S-UI 节点，控制面定时增量同步流量与会话踢出。</p>
             </div>
-            <div className='bg-card rounded-lg border p-3'>
+            <div className='bg-card rounded-lg border p-3.5'>
               <div className='font-semibold'>ACL 分流与规则覆盖</div>
-              <p className='text-muted-foreground mt-1'>支持 ACL4SSR 全分组一键套用，前/后置微调与实时域名匹配测试。</p>
+              <p className='text-muted-foreground mt-1 text-xs leading-relaxed'>支持 ACL4SSR 全分组一键套用，前/后置微调与实时域名匹配测试。</p>
             </div>
           </div>
         </div>

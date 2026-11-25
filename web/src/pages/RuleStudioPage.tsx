@@ -194,7 +194,7 @@ export function RuleStudioPage() {
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
           <h2 className='text-xl font-semibold tracking-tight'>分流规则预设与微调覆盖</h2>
-          <p className='text-muted-foreground text-xs'>
+          <p className='text-muted-foreground text-sm'>
             先选择一套基础分流模板（如 ACL4SSR 全分组），再叠加你的专属微调规则，无需手改整份配置
           </p>
         </div>

@@ -89,7 +89,7 @@ export function AdminRulesPage() {
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
           <h2 className='text-xl font-semibold tracking-tight'>ACL 规则预设与全局覆写</h2>
-          <p className='text-muted-foreground text-xs'>管理内置及导入的 ACL4SSR 规则模板，并可注入全站统一的高优先级覆盖规则</p>
+          <p className='text-muted-foreground text-sm'>管理内置及导入的 ACL4SSR 规则模板，并可注入全站统一的高优先级覆盖规则</p>
         </div>
         <Button size='sm' onClick={() => setImportOpen(true)}>
           <Download className='size-3.5' /> 导入 Subconverter .ini 规则

@@ -42,7 +42,7 @@ export function AccountPage() {
     <div className='space-y-5'>
       <div>
         <h2 className='text-xl font-semibold tracking-tight'>账户与安全设置</h2>
-        <p className='text-muted-foreground text-xs'>管理登录凭据、邀请记录与订阅安全密钥</p>
+        <p className='text-muted-foreground text-sm'>管理登录凭据、邀请记录与订阅安全密钥</p>
       </div>
 
       <div className='grid gap-5 lg:grid-cols-2'>

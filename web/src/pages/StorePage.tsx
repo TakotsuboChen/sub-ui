@@ -156,9 +156,9 @@ export function StorePage() {
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
           <h2 className='text-xl font-semibold tracking-tight'>订阅商店与自助缴费</h2>
-          <p className='text-muted-foreground text-xs'>支持支付宝、微信支付、易支付通道与卡密兑换，付款后自动多节点同步下发</p>
+          <p className='text-muted-foreground text-sm'>支持支付宝、微信支付、易支付通道与卡密兑换，付款后自动多节点同步下发</p>
         </div>
-        <div className='bg-card flex items-center gap-2 rounded-lg border px-3 py-1.5 text-xs'>
+        <div className='bg-card flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm'>
           <span className='text-muted-foreground'>当前余额</span>
           <span className='font-mono text-sm font-bold'>{formatCents(user?.balanceCents ?? 0)}</span>
         </div>
@@ -206,7 +206,7 @@ export function StorePage() {
               <CardDescription className='mt-2'>{p.description || '高速直连多地域节点订阅'}</CardDescription>
             </CardHeader>
             <CardContent className='space-y-4'>
-              <ul className='space-y-2 text-xs'>
+              <ul className='space-y-2 text-sm'>
                 <li className='flex items-center gap-2'>
                   <Check className='text-success size-3.5' />
                   周期流量：{p.quotaBytes > 0 ? formatBytes(p.quotaBytes) : '无限流量'}
@@ -239,7 +239,7 @@ export function StorePage() {
           <CardTitle>我的历史订单</CardTitle>
         </CardHeader>
         <CardContent className='overflow-x-auto'>
-          <table className='w-full text-left text-xs'>
+          <table className='w-full text-left text-sm'>
             <thead className='text-muted-foreground border-b'>
               <tr>
                 <th className='py-2 font-medium'>订单号</th>

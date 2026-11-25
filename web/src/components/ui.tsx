@@ -20,7 +20,7 @@ export function CardTitle({ className, ...props }: React.HTMLAttributes<HTMLHead
 }
 
 export function CardDescription({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
-  return <p className={cn('text-muted-foreground text-xs', className)} {...props} />
+  return <p className={cn('text-muted-foreground text-sm', className)} {...props} />
 }
 
 export function CardContent({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
@@ -134,7 +134,7 @@ export function Select({ className, ...props }: React.SelectHTMLAttributes<HTMLS
 }
 
 export function Label({ className, ...props }: React.LabelHTMLAttributes<HTMLLabelElement>) {
-  return <label className={cn('text-xs font-medium text-foreground/90', className)} {...props} />
+  return <label className={cn('text-sm font-medium text-foreground/90', className)} {...props} />
 }
 
 export function Switch({
@@ -196,7 +196,7 @@ export function Dialog({
         <div className='mb-4 flex items-start justify-between gap-4'>
           <div>
             <h3 className='text-base font-semibold'>{title}</h3>
-            {description && <p className='text-muted-foreground mt-1 text-xs'>{description}</p>}
+            {description && <p className='text-muted-foreground mt-1 text-sm'>{description}</p>}
           </div>
           <Button variant='ghost' size='icon' onClick={onClose} aria-label='关闭'>
             <X className='size-4' />

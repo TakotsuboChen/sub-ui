@@ -36,7 +36,7 @@ export function AdminSettingsPage() {
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
           <h2 className='text-xl font-semibold tracking-tight'>系统设置与支付网关配置</h2>
-          <p className='text-muted-foreground text-xs'>配置站点品牌、注册及强制邀请码开关、订阅域名与支付宝/微信/易支付秘钥</p>
+          <p className='text-muted-foreground text-sm'>配置站点品牌、注册及强制邀请码开关、订阅域名与支付宝/微信/易支付秘钥</p>
         </div>
         <Button onClick={() => void saveAll()} disabled={saving}>
           <Save className='size-4' /> {saving ? '保存中...' : '保存全部设置'}
@@ -49,7 +49,7 @@ export function AdminSettingsPage() {
             <CardTitle>站点与注册策略</CardTitle>
             <CardDescription>控制新用户注册入口与强制邀请码校验</CardDescription>
           </CardHeader>
-          <CardContent className='space-y-3.5 text-xs'>
+          <CardContent className='space-y-3.5 text-sm'>
             <div className='space-y-1'>
               <Label>站点标题</Label>
               <Input value={s.site_name || ''} onChange={(e) => setVal('site_name', e.target.value)} />
@@ -96,7 +96,7 @@ export function AdminSettingsPage() {
             <CardTitle>易支付通用协议 (Epay)</CardTitle>
             <CardDescription>支持支付宝与微信聚合免签接口 (/submit.php)</CardDescription>
           </CardHeader>
-          <CardContent className='space-y-3 text-xs'>
+          <CardContent className='space-y-3 text-sm'>
             <label className='flex items-center justify-between rounded border p-3'>
               <span className='font-semibold'>启用易支付通道</span>
               <Switch checked={s.epay_enabled === 'true'} onCheckedChange={(v) => setVal('epay_enabled', String(v))} />
@@ -123,7 +123,7 @@ export function AdminSettingsPage() {
             <CardTitle>支付宝官方当面付 (Alipay F2F RSA2)</CardTitle>
             <CardDescription>原生调用 alipay.trade.precreate 生成扫码付款码</CardDescription>
           </CardHeader>
-          <CardContent className='space-y-3 text-xs'>
+          <CardContent className='space-y-3 text-sm'>
             <label className='flex items-center justify-between rounded border p-3'>
               <span className='font-semibold'>启用支付宝当面付</span>
               <Switch checked={s.alipay_f2f_enabled === 'true'} onCheckedChange={(v) => setVal('alipay_f2f_enabled', String(v))} />
@@ -148,7 +148,7 @@ export function AdminSettingsPage() {
             <CardTitle>微信支付官方 Native V3</CardTitle>
             <CardDescription>RSA-SHA256 签名 + AES-256-GCM 回调解密</CardDescription>
           </CardHeader>
-          <CardContent className='space-y-3 text-xs'>
+          <CardContent className='space-y-3 text-sm'>
             <label className='flex items-center justify-between rounded border p-3'>
               <span className='font-semibold'>启用微信支付 Native V3</span>
               <Switch checked={s.wechat_v3_enabled === 'true'} onCheckedChange={(v) => setVal('wechat_v3_enabled', String(v))} />

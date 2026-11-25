@@ -16,8 +16,10 @@
           if (dark) document.documentElement.classList.add('dark')
           var preset = localStorage.getItem('subui-theme-preset') || 'default'
           var radius = localStorage.getItem('subui-theme-radius') || 'lg'
+          var scale = localStorage.getItem('subui-theme-scale') || 'default'
           document.documentElement.setAttribute('data-theme-preset', preset)
           document.documentElement.setAttribute('data-theme-radius', radius)
+          document.documentElement.setAttribute('data-theme-scale', scale)
         } catch (e) {}
       })()
     </script>

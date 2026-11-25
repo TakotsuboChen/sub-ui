@@ -84,7 +84,7 @@ export function AdminOrdersInvitesPage() {
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
           <h2 className='text-xl font-semibold tracking-tight'>订单流水与注册邀请码</h2>
-          <p className='text-muted-foreground text-xs'>管理支付回调订单、人工补单核销以及批量生成受邀注册邀请码</p>
+          <p className='text-muted-foreground text-sm'>管理支付回调订单、人工补单核销以及批量生成受邀注册邀请码</p>
         </div>
         <Button size='sm' onClick={() => setInvOpen(true)}>
           <Plus className='size-3.5' /> 批量生成邀请码
@@ -96,7 +96,7 @@ export function AdminOrdersInvitesPage() {
           <CardTitle>全站邀请码 ({invites.length})</CardTitle>
         </CardHeader>
         <CardContent className='max-h-72 overflow-auto'>
-          <table className='w-full text-left text-xs'>
+          <table className='w-full text-left text-sm'>
             <thead className='text-muted-foreground border-b'>
               <tr>
                 <th className='py-2 font-medium'>邀请码</th>
@@ -150,7 +150,7 @@ export function AdminOrdersInvitesPage() {
           <CardTitle>支付订单流水 ({orders.length})</CardTitle>
         </CardHeader>
         <CardContent className='max-h-96 overflow-auto'>
-          <table className='w-full text-left text-xs'>
+          <table className='w-full text-left text-sm'>
             <thead className='text-muted-foreground border-b'>
               <tr>
                 <th className='py-2 font-medium'>订单号</th>

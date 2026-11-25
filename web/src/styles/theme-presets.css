@@ -98,3 +98,44 @@
 [data-theme-radius='md'] { --radius: 0.55rem; }
 [data-theme-radius='lg'] { --radius: 0.75rem; }
 [data-theme-radius='xl'] { --radius: 1rem; }
+
+/* ── Density & Typography Scale (inspired by QuantumNous/new-api) ───── */
+html[data-theme-scale='sm'] {
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.1875rem;
+  --text-2xl: 1.4375rem;
+  --text-3xl: 1.75rem;
+  --spacing: 0.225rem;
+}
+html[data-theme-scale='default'] {
+  --text-xs: 0.8125rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+}
+html[data-theme-scale='lg'] {
+  --text-xs: 0.875rem;
+  --text-sm: 0.95rem;
+  --text-base: 1.075rem;
+  --text-lg: 1.2rem;
+  --text-xl: 1.35rem;
+  --text-2xl: 1.65rem;
+  --text-3xl: 2rem;
+  --spacing: 0.28rem;
+}
+html[data-theme-scale='xl'] {
+  --text-xs: 0.9375rem;
+  --text-sm: 1rem;
+  --text-base: 1.125rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.45rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.15rem;
+  --spacing: 0.3rem;
+}

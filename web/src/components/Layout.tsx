@@ -152,13 +152,13 @@ export function Layout({
       )}
 
       {!sidebarCollapsed && (
-        <div className='bg-card/80 mt-auto rounded-lg border p-3 text-xs'>
+        <div className='bg-card/80 mt-auto rounded-lg border p-3 text-sm'>
           <div className='flex items-center justify-between'>
-            <span className='text-muted-foreground'>账户余额</span>
+            <span className='text-muted-foreground text-xs'>账户余额</span>
             <span className='font-mono font-semibold'>{formatCents(user?.balanceCents ?? 0)}</span>
           </div>
           <div className='mt-2 flex items-center justify-between'>
-            <span className='text-muted-foreground'>身份权限</span>
+            <span className='text-muted-foreground text-xs'>身份权限</span>
             <Badge variant={isAdmin ? 'default' : 'secondary'}>
               {isAdmin ? 'Administrator' : 'Member'}
             </Badge>
@@ -190,9 +190,9 @@ export function Layout({
             {sidebarCollapsed ? <PanelLeftOpen className='size-4' /> : <PanelLeftClose className='size-4' />}
           </Button>
 
-          <div className='flex items-center gap-2'>
-            <BrandLogo size='sm' />
-            <span className='text-sm font-bold tracking-tight'>{meta?.siteName || 'Sub-UI'}</span>
+          <div className='flex items-center gap-2.5'>
+            <BrandLogo size='md' />
+            <span className='text-base font-bold tracking-tight'>{meta?.siteName || 'Sub-UI'}</span>
             <Badge variant='outline' className='hidden font-mono text-xs sm:inline-flex'>
               v{meta?.version || __APP_VERSION__}
             </Badge>

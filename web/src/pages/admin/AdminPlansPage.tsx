@@ -137,7 +137,7 @@ export function AdminPlansPage() {
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
           <h2 className='text-xl font-semibold tracking-tight'>套餐定义与卡密 CDK</h2>
-          <p className='text-muted-foreground text-xs'>配置可售卖订阅套餐、流量限额、周期重置模式与批量生成兑换卡密</p>
+          <p className='text-muted-foreground text-sm'>配置可售卖订阅套餐、流量限额、周期重置模式与批量生成兑换卡密</p>
         </div>
         <div className='flex gap-2'>
           <Button variant='outline' size='sm' onClick={() => setCdkOpen(true)}>
@@ -180,7 +180,7 @@ export function AdminPlansPage() {
               </div>
               <Badge variant={p.enabled ? 'success' : 'secondary'}>{p.enabled ? '上架' : '下架'}</Badge>
             </CardHeader>
-            <CardContent className='space-y-3 text-xs'>
+            <CardContent className='space-y-3 text-sm'>
               <div className='flex justify-between'>
                 <span className='text-muted-foreground'>价格 / 时长</span>
                 <span className='font-mono font-semibold'>
@@ -233,7 +233,7 @@ export function AdminPlansPage() {
           <CardTitle>卡密兑换码列表 ({cdks.length})</CardTitle>
         </CardHeader>
         <CardContent className='max-h-96 overflow-auto'>
-          <table className='w-full text-left text-xs'>
+          <table className='w-full text-left text-sm'>
             <thead className='text-muted-foreground border-b'>
               <tr>
                 <th className='py-2 font-medium'>卡密</th>

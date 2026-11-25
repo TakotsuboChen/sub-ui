@@ -72,7 +72,7 @@ export function AdminOverviewPage() {
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
           <h2 className='text-xl font-semibold tracking-tight'>全局运维看板</h2>
-          <p className='text-muted-foreground text-xs'>跨节点实时流量采集、S-UI 内核健康状态与订单营收总览</p>
+          <p className='text-muted-foreground text-sm'>跨节点实时流量采集、S-UI 内核健康状态与订单营收总览</p>
         </div>
         <Button size='sm' onClick={() => void handleSyncAll()} disabled={syncing}>
           <RefreshCw className={`size-3.5 ${syncing ? 'animate-spin' : ''}`} />

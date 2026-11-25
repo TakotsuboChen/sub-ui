@@ -38,6 +38,7 @@ export interface PublicMeta {
 export type ThemeMode = 'light' | 'dark' | 'system'
 export type ThemePreset = 'default' | 'anthropic' | 'lake-view' | 'ocean-breeze' | 'rose-garden'
 export type ThemeRadius = 'none' | 'sm' | 'md' | 'lg' | 'xl'
+export type ThemeScale = 'sm' | 'default' | 'lg' | 'xl'
 
 interface AppState {
   user: User | null
@@ -46,6 +47,7 @@ interface AppState {
   themeMode: ThemeMode
   themePreset: ThemePreset
   themeRadius: ThemeRadius
+  themeScale: ThemeScale
   sidebarCollapsed: boolean
   setAuth: (token: string, user: User) => void
   logout: () => Promise<void>
@@ -54,16 +56,18 @@ interface AppState {
   setThemeMode: (m: ThemeMode) => void
   setThemePreset: (p: ThemePreset) => void
   setThemeRadius: (r: ThemeRadius) => void
+  setThemeScale: (s: ThemeScale) => void
   toggleSidebar: () => void
 }
 
-function applyTheme(mode: ThemeMode, preset: ThemePreset, radius: ThemeRadius) {
+function applyTheme(mode: ThemeMode, preset: ThemePreset, radius: ThemeRadius, scale: ThemeScale) {
   const root = document.documentElement
   const isDark =
     mode === 'dark' || (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
   root.classList.toggle('dark', isDark)
   root.setAttribute('data-theme-preset', preset)
   root.setAttribute('data-theme-radius', radius)
+  root.setAttribute('data-theme-scale', scale)
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
@@ -73,6 +77,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   themeMode: (localStorage.getItem('subui-theme-mode') as ThemeMode) || 'system',
   themePreset: (localStorage.getItem('subui-theme-preset') as ThemePreset) || 'default',
   themeRadius: (localStorage.getItem('subui-theme-radius') as ThemeRadius) || 'lg',
+  themeScale: (localStorage.getItem('subui-theme-scale') as ThemeScale) || 'default',
   sidebarCollapsed: localStorage.getItem('subui-sidebar-collapsed') === 'true',
 
   setAuth: (token, user) => {
@@ -112,23 +117,30 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   setThemeMode: (themeMode) => {
     localStorage.setItem('subui-theme-mode', themeMode)
-    const { themePreset, themeRadius } = get()
-    applyTheme(themeMode, themePreset, themeRadius)
+    const { themePreset, themeRadius, themeScale } = get()
+    applyTheme(themeMode, themePreset, themeRadius, themeScale)
     set({ themeMode })
   },
 
   setThemePreset: (themePreset) => {
     localStorage.setItem('subui-theme-preset', themePreset)
-    const { themeMode, themeRadius } = get()
-    applyTheme(themeMode, themePreset, themeRadius)
+    const { themeMode, themeRadius, themeScale } = get()
+    applyTheme(themeMode, themePreset, themeRadius, themeScale)
     set({ themePreset })
   },
 
   setThemeRadius: (themeRadius) => {
     localStorage.setItem('subui-theme-radius', themeRadius)
-    const { themeMode, themePreset } = get()
-    applyTheme(themeMode, themePreset, themeRadius)
+    const { themeMode, themePreset, themeScale } = get()
+    applyTheme(themeMode, themePreset, themeRadius, themeScale)
     set({ themeRadius })
+  },
+
+  setThemeScale: (themeScale) => {
+    localStorage.setItem('subui-theme-scale', themeScale)
+    const { themeMode, themePreset, themeRadius } = get()
+    applyTheme(themeMode, themePreset, themeRadius, themeScale)
+    set({ themeScale })
   },
 
   toggleSidebar: () => {
