@@ -17,13 +17,14 @@ Go + React 19 + TypeScript + Rsbuild + Tailwind CSS 4 单二进制控制面板�
 
 ## 架构与核心约定
 
+- **版本单一真源**：根目录 `VERSION` 为版本唯一真源（`main.go` 通过 `//go:embed VERSION` 注入 `internal/version`，`/api/system/public` 下发 `version`，`web/rsbuild.config.ts` 读取 `../VERSION` 注入 `__APP_VERSION__`）；改版时须同步更新 `VERSION` 与 `web/package.json`。
 - **单二进制与内嵌 SPA**：`webdist/embed.go` 通过 `//go:embed all:dist` 嵌入 `webdist/dist/`；非 `/api/*`、`/s/*` 请求由 `internal/api/server.go` 回退到 `index.html`。即使清空构建产物，也必须保留 `webdist/dist/.gitkeep`，否则 Go 编译失败。
 - **数据库与纯 Go 构建**：`internal/database/database.go` 默认使用纯 Go 驱动 `github.com/glebarez/sqlite`（WAL 模式、`busy_timeout(5000)`、`SetMaxOpenConns(1)`），构建保持 `CGO_ENABLED=0`，不要引入依赖 CGO 的数据库驱动。
 - **配置与密钥**：环境变量以 `SUBUI_*` 为前缀（见 `.env.example` 与 `internal/config/config.go`）。`SUBUI_JWT_SECRET` 为空时，首次启动会随机生成并持久化在 `settings` 表的 `jwt_secret` 键中；认证同时接受 `Authorization: Bearer` 与 `subui_token` Cookie。
 - **S-UI 流量采集与单用户重置**：`internal/sync/engine.go` 按 `SUBUI_SYNC_INTERVAL`（最小 5s，默认 30s）轮询启用的 `sui` 节点，依据 `UserNodeBinding.last_raw_up` / `last_raw_down` 计算增量并乘以节点 `traffic_multiplier`；超额或到期时下发 `enable: false` 并调用 `/apiv2/closeSessions` 断流。重置单用户当期流量时，向 `/apiv2/save`（`edit`）传 `up: 0, down: 0` 触发 S-UI 仅对该客户端滚存 `totalUp/totalDown`。
-- **分层规则编译**：`internal/rules/engine.go` 的规则优先级固定为：用户 `prepend` → 全局管理员 `prepend` → 预设 `StaticRules` → 预设 `RuleSets` → 用户/全局 `append` → 尾随 `GEOIP`/`FINAL`。全局管理员覆写以 `user_id = 0` 存储在 `user_rule_overrides` 表中，不要将该哨兵记录当作普通用户删除。
+- **分层规则编译与内置预设**：`internal/rules/engine.go` 的规则优先级固定为：用户 `prepend` → 全局管理员 `prepend` → 预设 `StaticRules` → 预设 `RuleSets` → 用户/全局 `append` → 尾随 `GEOIP`/`FINAL`。全局管理员覆写以 `user_id = 0` 存储在 `user_rule_overrides` 表中，不要将该哨兵记录当作普通用户删除。`SeedBuiltinPresets` 仅按 `slug` 缺省插入，修改或重命名内置预设后，存量 SQLite 库需停库备份并清理旧内置行才会重刷。
 - **支付幂等核销**：`internal/payment/payment.go` 的 `FulfillOrder` 在数据库事务中以 `status = 'pending'` 条件更新防重入，并触发节点 `ProvisionUserToNodes`；新增或修改支付回调须维持该幂等边界。
-- **前端界面约定**：页面路由通过 `web/src/App.tsx` 的 `PageKey` 状态切换（未引入 `react-router`）；TypeScript 严格开启 `noUnusedLocals` 与 `noUnusedParameters`；样式统一使用 `web/src/styles/theme.css` 定义的 OKLCH 语义令牌以兼容多主题预设与明暗切换。
+- **前端界面与字体约定**：页面路由通过 `web/src/App.tsx` 的 `PageKey` 状态切换（未引入 `react-router`）；TypeScript 严格开启 `noUnusedLocals` 与 `noUnusedParameters`；样式统一使用 `web/src/styles/theme.css` 定义的 OKLCH 语义令牌与 `theme-presets.css` 的 `html[data-theme-scale]` 缩放。对齐 `QuantumNous/new-api` 方案，不要引入无 Hinting 的 `@fontsource-variable/*` 网页字体，也不要在 `html` 上加 `antialiased` / `text-rendering: optimizeLegibility`，统一使用系统原生字体栈以保证 Windows ClearType 锐利度。
 
 ## 协作与提交约束
 
