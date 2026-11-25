@@ -58,7 +58,7 @@ git clone https://github.com/TakotsuboChen/sub-ui.git
 cd sub-ui
 cp .env.example .env
 # 按需修改 .env 中的 SUBUI_PUBLIC_URL 等参数
-docker compose up -d --build
+docker compose up -d
 ```
 
 服务默认监听 `8080` 端口。首次访问面板会自动进入**初始化向导**创建超级管理员账号。
