@@ -234,7 +234,7 @@ export function RuleStudioPage() {
         <Card>
           <CardHeader>
             <CardTitle>全局策略开关与分组改写</CardTitle>
-            <CardDescription>无需逐条写规则，直接把 ACL 的某个分组整组改道（例如把 AI 平台钉死新加坡）</CardDescription>
+            <CardDescription>无需逐条写规则，直接把 ACL 的某个策略组整组重定向至指定目标组</CardDescription>
           </CardHeader>
           <CardContent className='space-y-4'>
             <div className='grid grid-cols-2 gap-4 rounded-lg border p-3 text-xs'>
@@ -270,7 +270,7 @@ export function RuleStudioPage() {
             </div>
 
             <div className='space-y-2'>
-              <Label>分组流向覆写（例如将 💬 AI 平台 重定向至特定地区）</Label>
+              <Label>分组流向覆写（例如将 💬 AI 平台 重定向至指定策略组）</Label>
               {['💬 AI 平台', '📹 油管视频', '🎥 奈飞视频', '📲 电报消息', '🐟 漏网之鱼'].map((grp) => (
                 <div key={grp} className='flex items-center gap-2 text-xs'>
                   <span className='w-32 shrink-0 font-medium'>{grp}</span>
@@ -352,7 +352,7 @@ export function RuleStudioPage() {
                             prev.includes(rs.id) ? prev.filter((x) => x !== rs.id) : [...prev, rs.id]
                           )
                         }
-                        className={`rounded-md border px-2 py-1 text-[11px] transition ${
+                        className={`rounded-md border px-2 py-1 text-xs transition ${
                           isDisabled
                             ? 'border-destructive/40 bg-destructive/10 text-destructive line-through'
                             : 'hover:bg-accent'
@@ -515,7 +515,7 @@ export function RuleStudioPage() {
             </div>
           </CardHeader>
           <CardContent>
-            <pre className='bg-muted/60 h-80 overflow-auto rounded-lg border p-3 font-mono text-[11px] leading-relaxed'>
+            <pre className='bg-muted/60 h-80 overflow-auto rounded-lg border p-3 font-mono text-xs leading-relaxed'>
               {previewText || '点击上方按钮生成当前用户的完整订阅配置预览...'}
             </pre>
           </CardContent>

@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	_ "embed"
 	"errors"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -17,9 +19,24 @@ import (
 	"github.com/TakotsuboChen/sub-ui/internal/model"
 	"github.com/TakotsuboChen/sub-ui/internal/rules"
 	syncer "github.com/TakotsuboChen/sub-ui/internal/sync"
+	"github.com/TakotsuboChen/sub-ui/internal/version"
 )
 
+//go:embed VERSION
+var embeddedVersion string
+
+func init() {
+	if version.Version == "" {
+		version.Set(embeddedVersion)
+	}
+}
+
 func main() {
+	if len(os.Args) > 1 && (os.Args[1] == "--version" || os.Args[1] == "-v") {
+		fmt.Printf("sub-ui v%s\n", version.Get())
+		return
+	}
+
 	cfg := config.Load()
 
 	db, err := database.Init(cfg)
@@ -64,7 +81,7 @@ func main() {
 	}
 
 	go func() {
-		log.Printf("[sub-ui] listening on http://%s:%s", cfg.Host, cfg.Port)
+		log.Printf("[sub-ui] v%s listening on http://%s:%s", version.Get(), cfg.Host, cfg.Port)
 		if err := httpSrv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			log.Fatalf("[sub-ui] http server error: %v", err)
 		}

@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Sub-UI · S-UI 订阅聚合与分流控制面板</title>
     <script>
       ;(function () {
@@ -15,10 +16,8 @@
           if (dark) document.documentElement.classList.add('dark')
           var preset = localStorage.getItem('subui-theme-preset') || 'default'
           var radius = localStorage.getItem('subui-theme-radius') || 'lg'
-          var font = localStorage.getItem('subui-theme-font') || 'sans'
           document.documentElement.setAttribute('data-theme-preset', preset)
           document.documentElement.setAttribute('data-theme-radius', radius)
-          document.documentElement.setAttribute('data-theme-font', font)
         } catch (e) {}
       })()
     </script>

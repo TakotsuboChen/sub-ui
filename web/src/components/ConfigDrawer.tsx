@@ -1,13 +1,7 @@
 import { Check, Palette, X } from 'lucide-react'
 import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
-import {
-  type ThemeFont,
-  type ThemeMode,
-  type ThemePreset,
-  type ThemeRadius,
-  useAppStore,
-} from '@/stores/app-store'
+import { type ThemeMode, type ThemePreset, type ThemeRadius, useAppStore } from '@/stores/app-store'
 
 const PRESETS: { id: ThemePreset; label: string; dot: string }[] = [
   { id: 'default', label: '默认海蓝', dot: 'oklch(0.56 0.19 253)' },
@@ -18,16 +12,7 @@ const PRESETS: { id: ThemePreset; label: string; dot: string }[] = [
 ]
 
 export function ConfigDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const {
-    themeMode,
-    themePreset,
-    themeRadius,
-    themeFont,
-    setThemeMode,
-    setThemePreset,
-    setThemeRadius,
-    setThemeFont,
-  } = useAppStore()
+  const { themeMode, themePreset, themeRadius, setThemeMode, setThemePreset, setThemeRadius } = useAppStore()
 
   if (!open) return null
 
@@ -93,29 +78,6 @@ export function ConfigDrawer({ open, onClose }: { open: boolean; onClose: () => 
                     {p.label}
                   </span>
                   {themePreset === p.id && <Check className='text-primary size-3.5' />}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <p className='text-muted-foreground mb-2 text-xs font-medium'>正文排版字体</p>
-            <div className='grid grid-cols-2 gap-2'>
-              {(
-                [
-                  { id: 'sans', label: 'Public Sans 现代无衬线' },
-                  { id: 'serif', label: 'Lora 报刊衬线' },
-                ] as { id: ThemeFont; label: string }[]
-              ).map((f) => (
-                <button
-                  key={f.id}
-                  onClick={() => setThemeFont(f.id)}
-                  className={cn(
-                    'rounded-md border px-2.5 py-2 text-xs font-medium transition',
-                    themeFont === f.id ? 'border-primary bg-primary/10 text-primary' : 'hover:bg-accent'
-                  )}
-                >
-                  {f.label}
                 </button>
               ))}
             </div>

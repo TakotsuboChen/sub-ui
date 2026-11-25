@@ -2,9 +2,7 @@
 
 @theme inline {
   --font-sans: var(--font-ui-sans);
-  --font-public-sans: 'Public Sans Variable', 'Public Sans', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  --font-serif:
-    'Lora Variable', 'Lora', 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'SimSun', Georgia, serif;
+  --font-mono: var(--font-ui-mono);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -55,7 +53,12 @@
 :root {
   --radius: 0.75rem;
   --app-header-height: 3.15rem;
-  --font-ui-sans: 'Public Sans Variable', 'Public Sans', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-ui-sans:
+    'Inter Variable', 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei UI', 'Microsoft YaHei',
+    'Noto Sans CJK SC', 'Source Han Sans SC', 'WenQuanYi Micro Hei', system-ui, -apple-system, sans-serif;
+  --font-ui-mono:
+    'JetBrains Mono Variable', 'JetBrains Mono', 'Cascadia Mono', 'SFMono-Regular', Consolas, 'PingFang SC',
+    'Microsoft YaHei UI', 'Noto Sans CJK SC', monospace;
   --font-body: var(--font-ui-sans);
 
   --background: oklch(0.992 0 0);

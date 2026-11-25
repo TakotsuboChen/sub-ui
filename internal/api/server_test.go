@@ -142,6 +142,22 @@ func TestInviteRegistrationCheckoutAndKeyedSubscription(t *testing.T) {
 	if subResp.Header.Get("Subscription-Userinfo") == "" {
 		t.Fatalf("missing Subscription-Userinfo header")
 	}
+
+	// 7. Verify public meta exposes repository version
+	metaResp, err := http.Get(ts.URL + "/api/system/public")
+	if err != nil {
+		t.Fatalf("public meta failed: %v", err)
+	}
+	defer metaResp.Body.Close()
+	var metaBody struct {
+		Version string `json:"version"`
+	}
+	if err := json.NewDecoder(metaResp.Body).Decode(&metaBody); err != nil {
+		t.Fatalf("decode public meta: %v", err)
+	}
+	if metaBody.Version != "1.0.0-Alpha-1" {
+		t.Fatalf("expected version 1.0.0-Alpha-1, got %q", metaBody.Version)
+	}
 }
 
 func postJSON(t *testing.T, urlStr, token string, body any) *http.Response {

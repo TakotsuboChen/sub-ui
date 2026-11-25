@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@import '@fontsource-variable/public-sans';
-@import '@fontsource-variable/lora';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
 @import './theme.css';
 @import './theme-presets.css';
 
@@ -13,6 +13,9 @@
   }
   html {
     @apply overflow-x-hidden font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   body {
     @apply bg-background text-foreground min-h-svh w-full;

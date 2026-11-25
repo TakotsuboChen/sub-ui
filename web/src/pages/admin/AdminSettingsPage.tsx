@@ -134,11 +134,11 @@ export function AdminSettingsPage() {
             </div>
             <div className='space-y-1'>
               <Label>应用私钥 (PKCS8/PKCS1)</Label>
-              <Textarea className='font-mono text-[11px]' value={s.alipay_private_key || ''} onChange={(e) => setVal('alipay_private_key', e.target.value)} />
+              <Textarea className='font-mono text-xs' value={s.alipay_private_key || ''} onChange={(e) => setVal('alipay_private_key', e.target.value)} />
             </div>
             <div className='space-y-1'>
               <Label>支付宝公钥 (验签回调)</Label>
-              <Textarea className='font-mono text-[11px]' value={s.alipay_public_key || ''} onChange={(e) => setVal('alipay_public_key', e.target.value)} />
+              <Textarea className='font-mono text-xs' value={s.alipay_public_key || ''} onChange={(e) => setVal('alipay_public_key', e.target.value)} />
             </div>
           </CardContent>
         </Card>
@@ -175,7 +175,7 @@ export function AdminSettingsPage() {
             </div>
             <div className='space-y-1'>
               <Label>商户 API 私钥 (apiclient_key.pem)</Label>
-              <Textarea className='font-mono text-[11px]' value={s.wechat_private_key || ''} onChange={(e) => setVal('wechat_private_key', e.target.value)} />
+              <Textarea className='font-mono text-xs' value={s.wechat_private_key || ''} onChange={(e) => setVal('wechat_private_key', e.target.value)} />
             </div>
           </CardContent>
         </Card>

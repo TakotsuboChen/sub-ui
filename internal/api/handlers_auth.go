@@ -8,6 +8,7 @@ import (
 	"github.com/TakotsuboChen/sub-ui/internal/auth"
 	"github.com/TakotsuboChen/sub-ui/internal/database"
 	"github.com/TakotsuboChen/sub-ui/internal/model"
+	"github.com/TakotsuboChen/sub-ui/internal/version"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -17,7 +18,8 @@ func (s *Server) handlePublicMeta(c *gin.Context) {
 	_ = s.db.Model(&model.User{}).Where("role = ?", "admin").Count(&count).Error
 
 	c.JSON(http.StatusOK, gin.H{
-		"siteName":            database.GetSetting(s.db, "site_name", "Sub-UI"),
+		"version":               version.Get(),
+		"siteName":              database.GetSetting(s.db, "site_name", "Sub-UI"),
 		"siteSubtitle":        database.GetSetting(s.db, "site_subtitle", "S-UI 多节点订阅聚合与精细化分流控制面板"),
 		"announcement":        database.GetSetting(s.db, "announcement", ""),
 		"registrationEnabled": database.GetSetting(s.db, "registration_enabled", "true") == "true",

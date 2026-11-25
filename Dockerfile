@@ -4,6 +4,7 @@ WORKDIR /app/web
 RUN corepack enable && corepack prepare pnpm@10.27.0 --activate
 COPY web/package.json web/pnpm-lock.yaml* ./
 RUN pnpm install --frozen-lockfile || pnpm install
+COPY VERSION ../VERSION
 COPY web/ ./
 RUN pnpm build
 

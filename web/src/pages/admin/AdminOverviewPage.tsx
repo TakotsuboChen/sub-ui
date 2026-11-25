@@ -94,7 +94,7 @@ export function AdminOverviewPage() {
 
           <div className='p-4'>
             <div className='text-muted-foreground flex items-center gap-1.5 text-xs font-medium'>
-              <Server className='size-3.5' /> 边缘 S-UI 节点在线率
+              <Server className='size-3.5' /> S-UI 节点在线率
             </div>
             <div className='mt-2 font-mono text-2xl font-bold'>
               {kpi.onlineNodes} <span className='text-muted-foreground text-sm font-normal'>/ {kpi.totalNodes}</span>
@@ -134,8 +134,8 @@ export function AdminOverviewPage() {
               }))}
             >
               <CartesianGrid strokeDasharray='3 3' opacity={0.15} />
-              <XAxis dataKey='date' tick={{ fontSize: 11 }} />
-              <YAxis tick={{ fontSize: 11 }} />
+              <XAxis dataKey='date' tick={{ fontSize: 12 }} />
+              <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
               <Area type='monotone' dataKey='GB' stroke='var(--chart-1)' fill='var(--chart-1)' fillOpacity={0.2} />
             </AreaChart>
@@ -151,19 +151,19 @@ export function AdminOverviewPage() {
                 <CardTitle className='text-sm'>{n.name}</CardTitle>
                 <Badge variant={n.onlineStatus === 'online' ? 'success' : 'destructive'}>{n.onlineStatus}</Badge>
               </div>
-              <CardDescription>地区：{n.region} · 倍率 {n.trafficMultiplier}x</CardDescription>
+              <CardDescription>{n.region ? `标签：${n.region} · ` : ''}倍率 {n.trafficMultiplier}x</CardDescription>
             </CardHeader>
             <CardContent className='grid grid-cols-3 gap-2 pt-2 font-mono text-xs'>
               <div className='bg-muted/50 rounded p-2'>
-                <div className='text-muted-foreground text-[10px]'>CPU</div>
+                <div className='text-muted-foreground text-xs'>CPU</div>
                 <div className='font-semibold'>{n.cpuUsage.toFixed(1)}%</div>
               </div>
               <div className='bg-muted/50 rounded p-2'>
-                <div className='text-muted-foreground text-[10px]'>内存</div>
+                <div className='text-muted-foreground text-xs'>内存</div>
                 <div className='font-semibold'>{n.memUsage.toFixed(1)}%</div>
               </div>
               <div className='bg-muted/50 rounded p-2'>
-                <div className='text-muted-foreground text-[10px]'>在线</div>
+                <div className='text-muted-foreground text-xs'>在线</div>
                 <div className='font-semibold'>{n.onlineCount}</div>
               </div>
             </CardContent>

@@ -17,10 +17,10 @@ import {
   ShoppingBag,
   Sliders,
   Sun,
-  Ticket,
   UserCog,
   Users,
 } from 'lucide-react'
+import { BrandLogo } from '@/components/BrandLogo'
 import { ConfigDrawer } from '@/components/ConfigDrawer'
 import { Badge, Button } from '@/components/ui'
 import { cn, formatCents } from '@/lib/utils'
@@ -90,7 +90,7 @@ export function Layout({
     <div className='flex h-full flex-col gap-5 px-3 py-4'>
       <div>
         {!sidebarCollapsed && (
-          <p className='text-muted-foreground mb-2 px-2.5 text-[11px] font-semibold tracking-wider uppercase'>
+          <p className='text-muted-foreground mb-2 px-2.5 text-xs font-semibold tracking-wider uppercase'>
             用户工作台
           </p>
         )}
@@ -121,8 +121,8 @@ export function Layout({
       {isAdmin && (
         <div>
           {!sidebarCollapsed && (
-            <p className='text-muted-foreground mb-2 flex items-center gap-1.5 px-2.5 text-[11px] font-semibold tracking-wider uppercase'>
-              <Shield className='size-3' />
+            <p className='text-muted-foreground mb-2 flex items-center gap-1.5 px-2.5 text-xs font-semibold tracking-wider uppercase'>
+              <Shield className='size-3.5' />
               管理员控制台
             </p>
           )}
@@ -191,12 +191,10 @@ export function Layout({
           </Button>
 
           <div className='flex items-center gap-2'>
-            <div className='bg-primary text-primary-foreground flex size-7 items-center justify-center rounded-lg shadow-2xs'>
-              <Ticket className='size-4' />
-            </div>
+            <BrandLogo size='sm' />
             <span className='text-sm font-bold tracking-tight'>{meta?.siteName || 'Sub-UI'}</span>
-            <Badge variant='outline' className='hidden font-mono text-[10px] sm:inline-flex'>
-              v1.0
+            <Badge variant='outline' className='hidden font-mono text-xs sm:inline-flex'>
+              v{meta?.version || __APP_VERSION__}
             </Badge>
           </div>
         </div>

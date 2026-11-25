@@ -24,6 +24,7 @@ export interface User {
 }
 
 export interface PublicMeta {
+  version?: string
   siteName: string
   siteSubtitle: string
   announcement: string
@@ -37,7 +38,6 @@ export interface PublicMeta {
 export type ThemeMode = 'light' | 'dark' | 'system'
 export type ThemePreset = 'default' | 'anthropic' | 'lake-view' | 'ocean-breeze' | 'rose-garden'
 export type ThemeRadius = 'none' | 'sm' | 'md' | 'lg' | 'xl'
-export type ThemeFont = 'sans' | 'serif'
 
 interface AppState {
   user: User | null
@@ -46,7 +46,6 @@ interface AppState {
   themeMode: ThemeMode
   themePreset: ThemePreset
   themeRadius: ThemeRadius
-  themeFont: ThemeFont
   sidebarCollapsed: boolean
   setAuth: (token: string, user: User) => void
   logout: () => Promise<void>
@@ -55,18 +54,16 @@ interface AppState {
   setThemeMode: (m: ThemeMode) => void
   setThemePreset: (p: ThemePreset) => void
   setThemeRadius: (r: ThemeRadius) => void
-  setThemeFont: (f: ThemeFont) => void
   toggleSidebar: () => void
 }
 
-function applyTheme(mode: ThemeMode, preset: ThemePreset, radius: ThemeRadius, font: ThemeFont) {
+function applyTheme(mode: ThemeMode, preset: ThemePreset, radius: ThemeRadius) {
   const root = document.documentElement
   const isDark =
     mode === 'dark' || (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
   root.classList.toggle('dark', isDark)
   root.setAttribute('data-theme-preset', preset)
   root.setAttribute('data-theme-radius', radius)
-  root.setAttribute('data-theme-font', font)
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
@@ -76,7 +73,6 @@ export const useAppStore = create<AppState>((set, get) => ({
   themeMode: (localStorage.getItem('subui-theme-mode') as ThemeMode) || 'system',
   themePreset: (localStorage.getItem('subui-theme-preset') as ThemePreset) || 'default',
   themeRadius: (localStorage.getItem('subui-theme-radius') as ThemeRadius) || 'lg',
-  themeFont: (localStorage.getItem('subui-theme-font') as ThemeFont) || 'sans',
   sidebarCollapsed: localStorage.getItem('subui-sidebar-collapsed') === 'true',
 
   setAuth: (token, user) => {
@@ -116,30 +112,23 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   setThemeMode: (themeMode) => {
     localStorage.setItem('subui-theme-mode', themeMode)
-    const { themePreset, themeRadius, themeFont } = get()
-    applyTheme(themeMode, themePreset, themeRadius, themeFont)
+    const { themePreset, themeRadius } = get()
+    applyTheme(themeMode, themePreset, themeRadius)
     set({ themeMode })
   },
 
   setThemePreset: (themePreset) => {
     localStorage.setItem('subui-theme-preset', themePreset)
-    const { themeMode, themeRadius, themeFont } = get()
-    applyTheme(themeMode, themePreset, themeRadius, themeFont)
+    const { themeMode, themeRadius } = get()
+    applyTheme(themeMode, themePreset, themeRadius)
     set({ themePreset })
   },
 
   setThemeRadius: (themeRadius) => {
     localStorage.setItem('subui-theme-radius', themeRadius)
-    const { themeMode, themePreset, themeFont } = get()
-    applyTheme(themeMode, themePreset, themeRadius, themeFont)
+    const { themeMode, themePreset } = get()
+    applyTheme(themeMode, themePreset, themeRadius)
     set({ themeRadius })
-  },
-
-  setThemeFont: (themeFont) => {
-    localStorage.setItem('subui-theme-font', themeFont)
-    const { themeMode, themePreset, themeRadius } = get()
-    applyTheme(themeMode, themePreset, themeRadius, themeFont)
-    set({ themeFont })
   },
 
   toggleSidebar: () => {

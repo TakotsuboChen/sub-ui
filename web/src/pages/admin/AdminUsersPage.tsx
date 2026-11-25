@@ -115,7 +115,7 @@ export function AdminUsersPage() {
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
           <h2 className='text-xl font-semibold tracking-tight'>用户与跨节点凭证管理</h2>
-          <p className='text-muted-foreground text-xs'>管理用户限额、到期时间、手动重置周期流量及一键向多地 S-UI 节点下发客户端</p>
+          <p className='text-muted-foreground text-xs'>管理用户限额、到期时间、手动重置周期流量及一键向多台 S-UI 节点下发客户端</p>
         </div>
         <div className='flex gap-2'>
           <Input
@@ -154,7 +154,7 @@ export function AdminUsersPage() {
                     <div className='font-semibold'>
                       {u.username} {u.role === 'admin' && <Badge className='ml-1'>Admin</Badge>}
                     </div>
-                    <div className='text-muted-foreground font-mono text-[11px]'>{u.email || u.remark || '—'}</div>
+                    <div className='text-muted-foreground font-mono text-xs'>{u.email || u.remark || '—'}</div>
                   </td>
                   <td className='py-2.5'>
                     <Badge

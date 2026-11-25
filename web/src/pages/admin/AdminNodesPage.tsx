@@ -43,8 +43,8 @@ interface Node {
 const EMPTY_NODE: Partial<Node> = {
   name: '',
   nodeType: 'sui',
-  region: 'HK',
-  namePrefix: '🇭🇰 香港 | ',
+  region: '',
+  namePrefix: '',
   panelUrl: '',
   apiToken: '',
   subBaseUrl: '',
@@ -155,9 +155,9 @@ export function AdminNodesPage() {
     <div className='space-y-5'>
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <div>
-          <h2 className='text-xl font-semibold tracking-tight'>S-UI 边缘节点集群</h2>
+          <h2 className='text-xl font-semibold tracking-tight'>S-UI 节点集群</h2>
           <p className='text-muted-foreground text-xs'>
-            对接香港、新加坡等远端 S-UI `/apiv2` 控制接口；支持 API 代理、独立计费倍率及已有客户端一键纳管
+            对接多台远端 S-UI `/apiv2` 控制接口；支持 API 请求代理、独立计费倍率及已有客户端一键纳管
           </p>
         </div>
         <div className='flex gap-2'>
@@ -202,13 +202,13 @@ export function AdminNodesPage() {
             </CardHeader>
             <CardContent className='space-y-3 text-xs'>
               <div className='flex flex-wrap gap-2'>
-                <Badge variant='outline'>地区: {n.region}</Badge>
+                {n.region && <Badge variant='outline'>标签: {n.region}</Badge>}
                 <Badge variant='outline'>前缀: {n.namePrefix || '无'}</Badge>
                 <Badge variant='outline'>倍率: {n.trafficMultiplier}x</Badge>
                 {n.enableTfo && <Badge variant='info'>TFO 0-RTT</Badge>}
                 {n.apiProxy && <Badge variant='warning'>API 经代理</Badge>}
               </div>
-              {n.lastError && <div className='text-destructive font-mono text-[11px]'>{n.lastError}</div>}
+              {n.lastError && <div className='text-destructive font-mono text-xs'>{n.lastError}</div>}
               <div className='flex flex-wrap gap-2 pt-1'>
                 <Button size='sm' variant='outline' onClick={() => void testNode(n.id)}>
                   <Wifi className='size-3.5' /> 测试连通
@@ -263,12 +263,12 @@ export function AdminNodesPage() {
 
           <div className='grid gap-3 sm:grid-cols-3'>
             <div className='space-y-1'>
-              <Label>地区标签</Label>
-              <Input value={editing.region || ''} onChange={(e) => setEditing({ ...editing, region: e.target.value })} placeholder='HK / SG / JP' />
+              <Label>节点标签 / 地区（可选）</Label>
+              <Input value={editing.region || ''} onChange={(e) => setEditing({ ...editing, region: e.target.value })} placeholder='可选，如 Node-A' />
             </div>
             <div className='space-y-1'>
-              <Label>聚合节点命名前缀</Label>
-              <Input value={editing.namePrefix || ''} onChange={(e) => setEditing({ ...editing, namePrefix: e.target.value })} placeholder='🇭🇰 香港 | ' />
+              <Label>聚合节点命名前缀（可选）</Label>
+              <Input value={editing.namePrefix || ''} onChange={(e) => setEditing({ ...editing, namePrefix: e.target.value })} placeholder='可选，如 [Relay] ' />
             </div>
             <div className='space-y-1'>
               <Label>流量计费倍率</Label>
@@ -288,7 +288,7 @@ export function AdminNodesPage() {
                 <Input
                   value={editing.panelUrl || ''}
                   onChange={(e) => setEditing({ ...editing, panelUrl: e.target.value })}
-                  placeholder='https://hk.example.com:2095/app'
+                  placeholder='https://node.example.com:2095/app'
                   required
                 />
               </div>
@@ -308,7 +308,7 @@ export function AdminNodesPage() {
                   <Input
                     value={editing.subBaseUrl || ''}
                     onChange={(e) => setEditing({ ...editing, subBaseUrl: e.target.value })}
-                    placeholder='https://hk.example.com:2096/sub'
+                    placeholder='https://node.example.com:2096/sub'
                   />
                 </div>
                 <div className='space-y-1'>
@@ -321,7 +321,7 @@ export function AdminNodesPage() {
                 </div>
               </div>
               <div className='space-y-1'>
-                <Label>API 请求代理（可选，适合广州控制面跨墙连海外面板）</Label>
+                <Label>API 请求代理（可选，控制面直连面板网络受限时使用）</Label>
                 <Input
                   value={editing.apiProxy || ''}
                   onChange={(e) => setEditing({ ...editing, apiProxy: e.target.value })}

@@ -283,8 +283,8 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray='3 3' opacity={0.15} />
-                <XAxis dataKey='date' tick={{ fontSize: 11 }} />
-                <YAxis tick={{ fontSize: 11 }} />
+                <XAxis dataKey='date' tick={{ fontSize: 12 }} />
+                <YAxis tick={{ fontSize: 12 }} />
                 <Tooltip />
                 <Area
                   type='monotone'
@@ -302,7 +302,7 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
         <Card>
           <CardHeader>
             <CardTitle>分节点消耗分布</CardTitle>
-            <CardDescription>香港 / 新加坡等各节点用量占比</CardDescription>
+            <CardDescription>各节点加权流量占比</CardDescription>
           </CardHeader>
           <CardContent className='h-64'>
             {nodeBreakdown.length === 0 ? (
@@ -318,8 +318,8 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
                   }))}
                 >
                   <CartesianGrid strokeDasharray='3 3' opacity={0.15} />
-                  <XAxis dataKey='name' tick={{ fontSize: 11 }} />
-                  <YAxis tick={{ fontSize: 11 }} />
+                  <XAxis dataKey='name' tick={{ fontSize: 12 }} />
+                  <YAxis tick={{ fontSize: 12 }} />
                   <Tooltip />
                   <Bar dataKey='MB' fill='var(--chart-2)' radius={[6, 6, 0, 0]} />
                 </BarChart>
@@ -333,8 +333,8 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
       <div className='grid gap-5 lg:grid-cols-2'>
         <Card>
           <CardHeader>
-            <CardTitle>可用边缘 S-UI 节点</CardTitle>
-            <CardDescription>客户端直连节点，流量不经控制面服务器</CardDescription>
+            <CardTitle>可用 S-UI 节点</CardTitle>
+            <CardDescription>客户端直连数据面节点，业务流量不经过控制面服务器</CardDescription>
           </CardHeader>
           <CardContent>
             <div className='space-y-2.5'>
@@ -348,7 +348,7 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
                     <div>
                       <div className='font-medium'>{n.name}</div>
                       <div className='text-muted-foreground text-xs'>
-                        地区: {n.region} · 计费倍率: <span className='font-mono'>{n.trafficMultiplier}x</span>
+                        {n.region ? `标签: ${n.region} · ` : ''}计费倍率: <span className='font-mono'>{n.trafficMultiplier}x</span>
                       </div>
                     </div>
                   </div>
@@ -416,7 +416,7 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
           <div className='inline-block rounded-xl border bg-white p-4'>
             <QRCodeSVG value={currentQrUrl} size={200} />
           </div>
-          <p className='text-muted-foreground font-mono text-[11px] break-all'>{currentQrUrl}</p>
+          <p className='text-muted-foreground font-mono text-xs break-all'>{currentQrUrl}</p>
         </div>
       </Dialog>
     </div>
