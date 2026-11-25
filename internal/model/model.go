@@ -32,7 +32,7 @@ type Node struct {
 	ID                  uint      `json:"id" gorm:"primaryKey"`
 	Name                string    `json:"name" gorm:"size:128;not null"`
 	NodeType            string    `json:"nodeType" gorm:"size:24;default:'sui';not null"`
-	Region              string    `json:"region" gorm:"size:32;default:'HK'"`
+	Region              string    `json:"region" gorm:"size:32;default:''"`
 	NamePrefix          string    `json:"namePrefix" gorm:"size:64"`
 	PanelURL            string    `json:"panelUrl" gorm:"size:512"`
 	APIToken            string    `json:"apiToken" gorm:"size:512"`

@@ -86,7 +86,7 @@ func SeedBuiltinPresets(db *gorm.DB) error {
 		{
 			Slug:        "acl4ssr-full",
 			Name:        "ACL4SSR 全分组完整版",
-			Description: "对标 ACL4SSR_Online_Full 全分组：覆盖 22+ 细粒度策略组（港/狮/日/美/台/韩、AI 平台、电报、油管、奈飞、B 站、游戏、微软、苹果、去广告、国内直连）。",
+			Description: "对标 ACL4SSR_Online_Full 全分组：覆盖 22+ 细粒度策略组（地区自动测速分组、AI 平台、电报、油管、奈飞、B 站、游戏、微软、苹果、去广告、直连分流）。",
 			Category:    "acl4ssr",
 			SourceINIURL: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini",
 			ConfigJSON:  mustJSON(buildACL4SSRFullPreset()),
@@ -95,9 +95,9 @@ func SeedBuiltinPresets(db *gorm.DB) error {
 			SortOrder:   1,
 		},
 		{
-			Slug:        "ai-streaming-hk-sg",
-			Name:        "AI & 流媒体分流专版 (HK/SG 优化)",
-			Description: "专为香港 + 新加坡双节点优化：AI 平台（OpenAI / Claude / Gemini）自动分流至新加坡狮城节点，油管与通用海外流量优先走香港节点，保留原生 TFO 0-RTT。",
+			Slug:        "ai-streaming",
+			Name:        "AI & 流媒体分流专版",
+			Description: "内置常见 AI 平台（OpenAI / Claude / Gemini / Cursor）与流媒体独立策略组，不预设特定地区倾向，可在规则工作台自由指派出口节点组，默认启用原生 TFO 0-RTT。",
 			Category:    "builtin",
 			ConfigJSON:  mustJSON(buildAIStreamingPreset()),
 			IsDefault:   false,
@@ -107,7 +107,7 @@ func SeedBuiltinPresets(db *gorm.DB) error {
 		{
 			Slug:        "acl4ssr-mini",
 			Name:        "ACL4SSR 精简极速版",
-			Description: "轻量级规则集（节点选择、自动测速、AI 平台、去广告、国内直连），低内存客户端与路由器首选。",
+			Description: "轻量级规则集（节点选择、自动测速、AI 平台、广告拦截、直连分流），低内存客户端与路由器首选。",
 			Category:    "acl4ssr",
 			SourceINIURL: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini.ini",
 			ConfigJSON:  mustJSON(buildACL4SSRMiniPreset()),
@@ -150,7 +150,7 @@ func buildACL4SSRFullPreset() PresetConfig {
 			{Name: "🚀 节点选择", Type: "select", Proxies: []string{"♻️ 自动选择", "🇭🇰 香港节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "🇹🇼 台湾节点", "🇰🇷 韩国节点", "🚀 手动切换", "DIRECT"}},
 			{Name: "🚀 手动切换", Type: "select", Filter: ".*"},
 			{Name: "♻️ 自动选择", Type: "url-test", Filter: ".*", URL: "http://www.gstatic.com/generate_204", Interval: 300, Tolerance: 50},
-			{Name: "💬 AI 平台", Type: "select", Proxies: []string{"🇸🇬 狮城节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "🚀 节点选择", "🇭🇰 香港节点"}},
+			{Name: "💬 AI 平台", Type: "select", Proxies: []string{"🚀 节点选择", "♻️ 自动选择", "🚀 手动切换", "🇭🇰 香港节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", "🇺🇲 美国节点"}},
 			{Name: "📲 电报消息", Type: "select", Proxies: []string{"🚀 节点选择", "♻️ 自动选择", "🇸🇬 狮城节点", "🇭🇰 香港节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "DIRECT"}},
 			{Name: "📹 油管视频", Type: "select", Proxies: []string{"🚀 节点选择", "♻️ 自动选择", "🇭🇰 香港节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "DIRECT"}},
 			{Name: "🎥 奈飞视频", Type: "select", Proxies: []string{"🎥 奈飞节点", "🚀 节点选择", "🇸🇬 狮城节点", "🇭🇰 香港节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "DIRECT"}},
@@ -213,14 +213,15 @@ func buildACL4SSRFullPreset() PresetConfig {
 
 func buildAIStreamingPreset() PresetConfig {
 	p := buildACL4SSRFullPreset()
-	// Prioritize Singapore for AI & Hong Kong for YouTube/General
+	// Keep group selection region-neutral so admins/users bind their own nodes via Group Rewrites
 	for i := range p.ProxyGroups {
-		if p.ProxyGroups[i].Name == "💬 AI 平台" {
-			p.ProxyGroups[i].Proxies = []string{"🇸🇬 狮城节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "🚀 节点选择"}
-		} else if p.ProxyGroups[i].Name == "📹 油管视频" {
-			p.ProxyGroups[i].Proxies = []string{"🇭🇰 香港节点", "♻️ 自动选择", "🚀 节点选择", "🇸🇬 狮城节点"}
-		} else if p.ProxyGroups[i].Name == "🚀 节点选择" {
-			p.ProxyGroups[i].Proxies = []string{"🇭🇰 香港节点", "♻️ 自动选择", "🇸🇬 狮城节点", "🚀 手动切换", "DIRECT"}
+		switch p.ProxyGroups[i].Name {
+		case "💬 AI 平台":
+			p.ProxyGroups[i].Proxies = []string{"🚀 节点选择", "♻️ 自动选择", "🚀 手动切换", "🇭🇰 香港节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", "🇺🇲 美国节点"}
+		case "📹 油管视频":
+			p.ProxyGroups[i].Proxies = []string{"🚀 节点选择", "♻️ 自动选择", "🚀 手动切换", "🇭🇰 香港节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "DIRECT"}
+		case "🚀 节点选择":
+			p.ProxyGroups[i].Proxies = []string{"♻️ 自动选择", "🚀 手动切换", "🇭🇰 香港节点", "🇸🇬 狮城节点", "🇯🇵 日本节点", "🇺🇲 美国节点", "🇹🇼 台湾节点", "🇰🇷 韩国节点", "DIRECT"}
 		}
 	}
 	p.StaticRules = []RuleEntry{
@@ -241,14 +242,13 @@ func buildACL4SSRMiniPreset() PresetConfig {
 		EnableIPv6:     false,
 		EnableTFO:      true,
 		ProxyGroups: []ProxyGroupDef{
-			{Name: "🚀 节点选择", Type: "select", Proxies: []string{"♻️ 自动选择", "🇭🇰 香港节点", "🇸🇬 狮城节点", "DIRECT"}},
+			{Name: "🚀 节点选择", Type: "select", Proxies: []string{"♻️ 自动选择", "🚀 手动切换", "DIRECT"}},
+			{Name: "🚀 手动切换", Type: "select", Filter: ".*"},
 			{Name: "♻️ 自动选择", Type: "url-test", Filter: ".*", URL: "http://www.gstatic.com/generate_204", Interval: 300, Tolerance: 50},
-			{Name: "💬 AI 平台", Type: "select", Proxies: []string{"🇸🇬 狮城节点", "🚀 节点选择", "🇭🇰 香港节点"}},
-			{Name: "🇭🇰 香港节点", Type: "url-test", Filter: "(港|HK|Hong Kong|🇭🇰)", URL: "http://www.gstatic.com/generate_204", Interval: 300, Tolerance: 50},
-			{Name: "🇸🇬 狮城节点", Type: "url-test", Filter: "(新加坡|坡|狮城|SG|Singapore|🇸🇬)", URL: "http://www.gstatic.com/generate_204", Interval: 300, Tolerance: 50},
+			{Name: "💬 AI 平台", Type: "select", Proxies: []string{"🚀 节点选择", "♻️ 自动选择", "🚀 手动切换"}},
 			{Name: "🛑 广告拦截", Type: "select", Proxies: []string{"REJECT", "DIRECT"}},
 			{Name: "🎯 全球直连", Type: "select", Proxies: []string{"DIRECT", "🚀 节点选择"}},
-			{Name: "🐟 漏网之鱼", Type: "select", Proxies: []string{"🚀 节点选择", "DIRECT"}},
+			{Name: "🐟 漏网之鱼", Type: "select", Proxies: []string{"🚀 节点选择", "♻️ 自动选择", "DIRECT"}},
 		},
 		RuleSets: []RuleSetDef{
 			{ID: "lan", Group: "🎯 全球直连", Behavior: "classical", URL: base + "LocalAreaNetwork.list", SingboxSRS: srs + "geoip/private.srs"},
