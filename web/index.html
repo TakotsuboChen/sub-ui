@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sub-UI · S-UI 订阅聚合与分流控制面板</title>
+    <script>
+      ;(function () {
+        try {
+          var mode = localStorage.getItem('subui-theme-mode') || 'system'
+          var dark =
+            mode === 'dark' ||
+            (mode === 'system' &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches)
+          if (dark) document.documentElement.classList.add('dark')
+          var preset = localStorage.getItem('subui-theme-preset') || 'default'
+          var radius = localStorage.getItem('subui-theme-radius') || 'lg'
+          var font = localStorage.getItem('subui-theme-font') || 'sans'
+          document.documentElement.setAttribute('data-theme-preset', preset)
+          document.documentElement.setAttribute('data-theme-radius', radius)
+          document.documentElement.setAttribute('data-theme-font', font)
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

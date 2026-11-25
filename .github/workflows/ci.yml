@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26"
+
+      - name: Frontend typecheck and build
+        working-directory: web
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm typecheck
+          pnpm build
+
+      - name: Embed frontend assets
+        run: |
+          rm -rf webdist/dist && mkdir -p webdist/dist
+          cp -r web/dist/* webdist/dist/
+
+      - name: Go test and build
+        run: |
+          go test -v ./...
+          CGO_ENABLED=0 go build -o sub-ui .

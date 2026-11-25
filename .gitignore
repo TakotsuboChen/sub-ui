@@ -1,0 +1,29 @@
+# Binaries & build artifacts
+/sub-ui
+/sub-ui.exe
+*.exe
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.log
+
+# Frontend
+web/node_modules/
+web/dist/
+webdist/dist/
+!webdist/dist/.gitkeep
+
+# Env & local secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.crt
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
