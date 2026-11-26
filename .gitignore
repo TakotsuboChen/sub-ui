@@ -27,3 +27,6 @@ webdist/dist/
 .idea/
 .DS_Store
 Thumbs.db
+
+# External reference repositories
+/references/
