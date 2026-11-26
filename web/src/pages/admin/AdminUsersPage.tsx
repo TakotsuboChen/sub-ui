@@ -136,7 +136,7 @@ export function AdminUsersPage() {
 
       <Card>
         <CardContent className='overflow-x-auto pt-4'>
-          <table className='w-full text-left text-sm'>
+          <table data-slot='table' className='w-full text-left text-sm'>
             <thead className='text-muted-foreground border-b'>
               <tr>
                 <th className='py-2 font-medium'>用户</th>

@@ -233,7 +233,7 @@ export function AdminPlansPage() {
           <CardTitle>卡密兑换码列表 ({cdks.length})</CardTitle>
         </CardHeader>
         <CardContent className='max-h-96 overflow-auto'>
-          <table className='w-full text-left text-sm'>
+          <table data-slot='table' className='w-full text-left text-sm'>
             <thead className='text-muted-foreground border-b'>
               <tr>
                 <th className='py-2 font-medium'>卡密</th>

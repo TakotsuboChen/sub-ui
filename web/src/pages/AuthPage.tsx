@@ -1,14 +1,18 @@
 import React, { useState } from 'react'
-import { KeyRound, Lock, Mail, Moon, ShieldCheck, Sparkles, Sun, User as UserIcon } from 'lucide-react'
+import { KeyRound, Lock, Mail, ShieldCheck, Sparkles, User as UserIcon } from 'lucide-react'
+import { motion, useReducedMotion } from 'motion/react'
 import { toast } from 'sonner'
 import { BrandLogo } from '@/components/BrandLogo'
+import { PageTransition } from '@/components/PageTransition'
+import { ThemeQuickSwitcher } from '@/components/ThemeQuickSwitcher'
 import { Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label } from '@/components/ui'
 import { apiFetch } from '@/lib/api'
 import { useAppStore, type User } from '@/stores/app-store'
 
 export function AuthPage() {
-  const { meta, setAuth, refreshMeta, themeMode, setThemeMode } = useAppStore()
+  const { meta, setAuth, refreshMeta } = useAppStore()
   const setupRequired = meta?.setupRequired ?? false
+  const shouldReduce = useReducedMotion()
 
   const [mode, setMode] = useState<'login' | 'register'>('login')
   const [username, setUsername] = useState('')
@@ -17,10 +21,6 @@ export function AuthPage() {
   const [inviteCode, setInviteCode] = useState('')
   const [siteName, setSiteName] = useState('Sub-UI')
   const [loading, setLoading] = useState(false)
-
-  const isDark =
-    themeMode === 'dark' ||
-    (themeMode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
 
   const submitSetup = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -70,18 +70,11 @@ export function AuthPage() {
     <div className='bg-background relative flex min-h-svh flex-col justify-center overflow-hidden px-4 py-10'>
       <div className='pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.65_0.16_250/0.12),transparent_60%)]' />
 
-      <div className='absolute top-4 right-4'>
-        <Button
-          variant='outline'
-          size='icon'
-          onClick={() => setThemeMode(isDark ? 'light' : 'dark')}
-          title='切换明暗模式'
-        >
-          {isDark ? <Sun className='size-4' /> : <Moon className='size-4' />}
-        </Button>
+      <div className='absolute top-4 right-4 z-10'>
+        <ThemeQuickSwitcher />
       </div>
 
-      <div className='relative mx-auto grid w-full max-w-4xl items-center gap-8 lg:grid-cols-2'>
+      <PageTransition className='relative mx-auto grid w-full max-w-4xl items-center gap-8 lg:grid-cols-2'>
         <div className='space-y-5'>
           <div className='flex items-center gap-3'>
             <BrandLogo size='lg' />
@@ -97,18 +90,18 @@ export function AuthPage() {
           </p>
 
           <div className='grid grid-cols-2 gap-3 text-sm'>
-            <div className='bg-card rounded-lg border p-3.5'>
+            <div className='bg-card ring-foreground/10 rounded-xl p-3.5 ring-1'>
               <div className='font-semibold'>多节点零中转聚合</div>
               <p className='text-muted-foreground mt-1 text-xs leading-relaxed'>客户端直连各数据面 S-UI 节点，控制面定时增量同步流量与会话踢出。</p>
             </div>
-            <div className='bg-card rounded-lg border p-3.5'>
+            <div className='bg-card ring-foreground/10 rounded-xl p-3.5 ring-1'>
               <div className='font-semibold'>ACL 分流与规则覆盖</div>
               <p className='text-muted-foreground mt-1 text-xs leading-relaxed'>支持 ACL4SSR 全分组一键套用，前/后置微调与实时域名匹配测试。</p>
             </div>
           </div>
         </div>
 
-        <Card className='shadow-lg'>
+        <Card data-card-hover='false' className='shadow-lg'>
           {setupRequired ? (
             <>
               <CardHeader>
@@ -167,25 +160,30 @@ export function AuthPage() {
                 <div className='flex items-center justify-between'>
                   <CardTitle>{mode === 'login' ? '登录控制台' : '注册新账户'}</CardTitle>
                   {meta?.registrationEnabled && (
-                    <div className='bg-muted flex rounded-md p-0.5 text-xs'>
-                      <button
-                        type='button'
-                        onClick={() => setMode('login')}
-                        className={`rounded px-2.5 py-1 font-medium transition ${
-                          mode === 'login' ? 'bg-background shadow-2xs' : 'text-muted-foreground'
-                        }`}
-                      >
-                        登录
-                      </button>
-                      <button
-                        type='button'
-                        onClick={() => setMode('register')}
-                        className={`rounded px-2.5 py-1 font-medium transition ${
-                          mode === 'register' ? 'bg-background shadow-2xs' : 'text-muted-foreground'
-                        }`}
-                      >
-                        注册
-                      </button>
+                    <div className='bg-muted flex rounded-lg p-0.5 text-xs'>
+                      {(['login', 'register'] as const).map((tab) => (
+                        <button
+                          key={tab}
+                          type='button'
+                          onClick={() => setMode(tab)}
+                          className={`relative rounded-md px-2.5 py-1 font-medium transition ${
+                            mode === tab ? 'text-foreground' : 'text-muted-foreground'
+                          }`}
+                        >
+                          {mode === tab && (
+                            <motion.span
+                              layoutId='auth-mode-pill'
+                              transition={
+                                shouldReduce
+                                  ? { duration: 0 }
+                                  : { type: 'spring', stiffness: 450, damping: 32 }
+                              }
+                              className='bg-background absolute inset-0 rounded-md shadow-2xs'
+                            />
+                          )}
+                          <span className='relative z-10'>{tab === 'login' ? '登录' : '注册'}</span>
+                        </button>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -202,7 +200,7 @@ export function AuthPage() {
                   <div className='space-y-1.5'>
                     <Label>用户名 {mode === 'login' && '/ 邮箱'}</Label>
                     <div className='relative'>
-                      <UserIcon className='text-muted-foreground absolute top-2.5 left-3 size-4' />
+                      <UserIcon className='text-muted-foreground absolute top-2 left-3 size-4' />
                       <Input
                         className='pl-9'
                         placeholder={mode === 'login' ? '用户名或邮箱' : '3~48位字母数字下划线'}
@@ -217,7 +215,7 @@ export function AuthPage() {
                     <div className='space-y-1.5'>
                       <Label>邮箱（可选）</Label>
                       <div className='relative'>
-                        <Mail className='text-muted-foreground absolute top-2.5 left-3 size-4' />
+                        <Mail className='text-muted-foreground absolute top-2 left-3 size-4' />
                         <Input
                           type='email'
                           className='pl-9'
@@ -232,7 +230,7 @@ export function AuthPage() {
                   <div className='space-y-1.5'>
                     <Label>密码</Label>
                     <div className='relative'>
-                      <Lock className='text-muted-foreground absolute top-2.5 left-3 size-4' />
+                      <Lock className='text-muted-foreground absolute top-2 left-3 size-4' />
                       <Input
                         type='password'
                         className='pl-9'
@@ -255,7 +253,7 @@ export function AuthPage() {
                         )}
                       </Label>
                       <div className='relative'>
-                        <KeyRound className='text-muted-foreground absolute top-2.5 left-3 size-4' />
+                        <KeyRound className='text-muted-foreground absolute top-2 left-3 size-4' />
                         <Input
                           className='pl-9 font-mono uppercase'
                           placeholder='输入邀请码'
@@ -275,7 +273,7 @@ export function AuthPage() {
             </>
           )}
         </Card>
-      </div>
+      </PageTransition>
     </div>
   )
 }

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Toaster } from 'sonner'
+import { BrandLogo } from '@/components/BrandLogo'
 import { Layout, type PageKey } from '@/components/Layout'
+import { AnimatedPage } from '@/components/PageTransition'
 import { AccountPage } from '@/pages/AccountPage'
 import { AuthPage } from '@/pages/AuthPage'
 import { DashboardPage } from '@/pages/DashboardPage'
@@ -25,8 +27,11 @@ export function App() {
 
   if (!bootstrapped) {
     return (
-      <div className='bg-background text-muted-foreground flex min-h-svh items-center justify-center text-sm'>
-        正在初始化 Sub-UI...
+      <div className='bg-background text-muted-foreground flex min-h-svh flex-col items-center justify-center gap-3 text-sm'>
+        <div className='animate-pulse'>
+          <BrandLogo size='lg' />
+        </div>
+        <span>正在初始化 Sub-UI...</span>
       </div>
     )
   }
@@ -38,18 +43,20 @@ export function App() {
         <AuthPage />
       ) : (
         <Layout activePage={page} onNavigate={setPage}>
-          {page === 'dashboard' && <DashboardPage onNavigate={setPage} />}
-          {page === 'rules' && <RuleStudioPage />}
-          {page === 'store' && <StorePage />}
-          {page === 'account' && <AccountPage />}
+          <AnimatedPage pageKey={page}>
+            {page === 'dashboard' && <DashboardPage onNavigate={setPage} />}
+            {page === 'rules' && <RuleStudioPage />}
+            {page === 'store' && <StorePage />}
+            {page === 'account' && <AccountPage />}
 
-          {user.role === 'admin' && page === 'admin-overview' && <AdminOverviewPage />}
-          {user.role === 'admin' && page === 'admin-nodes' && <AdminNodesPage />}
-          {user.role === 'admin' && page === 'admin-users' && <AdminUsersPage />}
-          {user.role === 'admin' && page === 'admin-rules' && <AdminRulesPage />}
-          {user.role === 'admin' && page === 'admin-plans' && <AdminPlansPage />}
-          {user.role === 'admin' && page === 'admin-orders' && <AdminOrdersInvitesPage />}
-          {user.role === 'admin' && page === 'admin-settings' && <AdminSettingsPage />}
+            {user.role === 'admin' && page === 'admin-overview' && <AdminOverviewPage />}
+            {user.role === 'admin' && page === 'admin-nodes' && <AdminNodesPage />}
+            {user.role === 'admin' && page === 'admin-users' && <AdminUsersPage />}
+            {user.role === 'admin' && page === 'admin-rules' && <AdminRulesPage />}
+            {user.role === 'admin' && page === 'admin-plans' && <AdminPlansPage />}
+            {user.role === 'admin' && page === 'admin-orders' && <AdminOrdersInvitesPage />}
+            {user.role === 'admin' && page === 'admin-settings' && <AdminSettingsPage />}
+          </AnimatedPage>
         </Layout>
       )}
     </>

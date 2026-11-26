@@ -239,7 +239,7 @@ export function StorePage() {
           <CardTitle>我的历史订单</CardTitle>
         </CardHeader>
         <CardContent className='overflow-x-auto'>
-          <table className='w-full text-left text-sm'>
+          <table data-slot='table' className='w-full text-left text-sm'>
             <thead className='text-muted-foreground border-b'>
               <tr>
                 <th className='py-2 font-medium'>订单号</th>

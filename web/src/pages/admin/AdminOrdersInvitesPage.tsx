@@ -96,7 +96,7 @@ export function AdminOrdersInvitesPage() {
           <CardTitle>全站邀请码 ({invites.length})</CardTitle>
         </CardHeader>
         <CardContent className='max-h-72 overflow-auto'>
-          <table className='w-full text-left text-sm'>
+          <table data-slot='table' className='w-full text-left text-sm'>
             <thead className='text-muted-foreground border-b'>
               <tr>
                 <th className='py-2 font-medium'>邀请码</th>
@@ -150,7 +150,7 @@ export function AdminOrdersInvitesPage() {
           <CardTitle>支付订单流水 ({orders.length})</CardTitle>
         </CardHeader>
         <CardContent className='max-h-96 overflow-auto'>
-          <table className='w-full text-left text-sm'>
+          <table data-slot='table' className='w-full text-left text-sm'>
             <thead className='text-muted-foreground border-b'>
               <tr>
                 <th className='py-2 font-medium'>订单号</th>

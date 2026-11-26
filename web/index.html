@@ -19,11 +19,13 @@
           var font = localStorage.getItem('subui-theme-font') || 'default'
           var radius = localStorage.getItem('subui-theme-radius') || 'default'
           var scale = localStorage.getItem('subui-theme-scale') || 'default'
+          var contentLayout = localStorage.getItem('subui-theme-content-layout') || 'full'
           var resolvedFont = font === 'default' ? (preset === 'anthropic' ? 'serif' : 'system') : font
           if (preset && preset !== 'default') root.setAttribute('data-theme-preset', preset)
           root.setAttribute('data-theme-font', resolvedFont)
           if (radius && radius !== 'default') root.setAttribute('data-theme-radius', radius)
           if (scale && scale !== 'default') root.setAttribute('data-theme-scale', scale)
+          if (contentLayout && contentLayout !== 'full') root.setAttribute('data-theme-content-layout', contentLayout)
         } catch (e) {}
       })()
     </script>
