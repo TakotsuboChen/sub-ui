@@ -86,7 +86,7 @@ export function AdminOverviewPage() {
             <div className='text-muted-foreground flex items-center gap-1.5 text-xs font-medium'>
               <Users className='size-3.5' /> 用户规模 / 近5分在线
             </div>
-            <div className='mt-2 font-mono text-2xl font-bold'>
+            <div className='mt-2 text-2xl font-bold tabular-nums'>
               {kpi.activeUsers} <span className='text-muted-foreground text-sm font-normal'>/ {kpi.totalUsers}</span>
             </div>
             <div className='text-muted-foreground mt-1 text-xs'>当前活跃在线：{kpi.onlineUsers} 人</div>
@@ -96,7 +96,7 @@ export function AdminOverviewPage() {
             <div className='text-muted-foreground flex items-center gap-1.5 text-xs font-medium'>
               <Server className='size-3.5' /> S-UI 节点在线率
             </div>
-            <div className='mt-2 font-mono text-2xl font-bold'>
+            <div className='mt-2 text-2xl font-bold tabular-nums'>
               {kpi.onlineNodes} <span className='text-muted-foreground text-sm font-normal'>/ {kpi.totalNodes}</span>
             </div>
             <div className='text-muted-foreground mt-1 text-xs'>分布式直连（控制面零转发）</div>
@@ -106,7 +106,7 @@ export function AdminOverviewPage() {
             <div className='text-muted-foreground flex items-center gap-1.5 text-xs font-medium'>
               <Activity className='size-3.5' /> 近 14 天全站聚合流量
             </div>
-            <div className='mt-2 font-mono text-2xl font-bold'>{formatBytes(kpi.totalTraffic14d)}</div>
+            <div className='mt-2 text-2xl font-bold tabular-nums'>{formatBytes(kpi.totalTraffic14d)}</div>
             <div className='text-muted-foreground mt-1 text-xs'>含节点计费倍率加权统计</div>
           </div>
 
@@ -114,7 +114,7 @@ export function AdminOverviewPage() {
             <div className='text-muted-foreground flex items-center gap-1.5 text-xs font-medium'>
               <DollarSign className='size-3.5' /> 累计订单实收
             </div>
-            <div className='mt-2 font-mono text-2xl font-bold'>{formatCents(kpi.revenueCents)}</div>
+            <div className='mt-2 text-2xl font-bold tabular-nums'>{formatCents(kpi.revenueCents)}</div>
             <div className='text-muted-foreground mt-1 text-xs'>已核销订单数：{kpi.paidOrders} 笔</div>
           </div>
         </div>
@@ -153,7 +153,7 @@ export function AdminOverviewPage() {
               </div>
               <CardDescription>{n.region ? `标签：${n.region} · ` : ''}倍率 {n.trafficMultiplier}x</CardDescription>
             </CardHeader>
-            <CardContent className='grid grid-cols-3 gap-2 pt-2 font-mono text-xs'>
+            <CardContent className='grid grid-cols-3 gap-2 pt-2 text-xs tabular-nums'>
               <div className='bg-muted/50 rounded p-2'>
                 <div className='text-muted-foreground text-xs'>CPU</div>
                 <div className='font-semibold'>{n.cpuUsage.toFixed(1)}%</div>

@@ -466,7 +466,7 @@ export function RuleStudioPage() {
               <GitBranch className='size-4' /> 最终编译生效顺序 ({data.compiled.timeline.length} 条)
             </CardTitle>
           </CardHeader>
-          <CardContent className='max-h-96 space-y-1.5 overflow-y-auto font-mono text-xs'>
+          <CardContent className='max-h-96 space-y-1.5 overflow-y-auto text-xs'>
             {data.compiled.timeline.map((item, idx) => (
               <div
                 key={`${item.id}_${idx}`}
@@ -474,7 +474,7 @@ export function RuleStudioPage() {
                   item.overridden ? 'opacity-50' : ''
                 }`}
               >
-                <span className='truncate'>{item.rawLine}</span>
+                <span className='truncate font-mono'>{item.rawLine}</span>
                 <Badge
                   variant={
                     item.source === 'user_override'

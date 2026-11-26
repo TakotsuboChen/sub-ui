@@ -144,7 +144,7 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
       {meta?.announcement && (
         <div className='bg-card flex items-start gap-3 rounded-lg border border-l-4 border-l-primary px-4 py-3 text-sm'>
           <ShieldAlert className='text-primary mt-0.5 size-4 shrink-0' />
-          <div className='whitespace-pre-wrap text-xs leading-relaxed'>{meta.announcement}</div>
+          <div className='whitespace-pre-wrap text-sm leading-relaxed'>{meta.announcement}</div>
         </div>
       )}
 
@@ -168,7 +168,7 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
             <div className='text-muted-foreground flex items-center gap-1.5 text-xs font-medium'>
               <HardDrive className='size-3.5' /> 本周期流量额度
             </div>
-            <div className='mt-2.5 font-mono text-xl font-bold tabular-nums'>
+            <div className='mt-2.5 text-xl font-bold tabular-nums'>
               {formatBytes(user.usedBytes)}
               <span className='text-muted-foreground text-xs font-normal'>
                 {' / '}
@@ -189,7 +189,7 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
             <div className='text-muted-foreground flex items-center gap-1.5 text-xs font-medium'>
               <CalendarClock className='size-3.5' /> 下次周期重置
             </div>
-            <div className='mt-2.5 font-mono text-xl font-bold tabular-nums'>
+            <div className='mt-2.5 text-xl font-bold tabular-nums'>
               {user.nextResetAt > 0 ? formatUnixDate(user.nextResetAt) : '一次性 / 不重置'}
             </div>
             <div className='text-muted-foreground mt-1 text-xs'>
@@ -201,7 +201,7 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
             <div className='text-muted-foreground flex items-center gap-1.5 text-xs font-medium'>
               <Database className='size-3.5' /> 历史累计总消耗
             </div>
-            <div className='mt-2.5 font-mono text-xl font-bold tabular-nums'>
+            <div className='mt-2.5 text-xl font-bold tabular-nums'>
               {formatBytes(user.totalUsedBytes)}
             </div>
             <div className='text-muted-foreground mt-1 text-xs'>
@@ -348,7 +348,7 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
                     <div>
                       <div className='font-medium'>{n.name}</div>
                       <div className='text-muted-foreground text-xs'>
-                        {n.region ? `标签: ${n.region} · ` : ''}计费倍率: <span className='font-mono'>{n.trafficMultiplier}x</span>
+                        {n.region ? `标签: ${n.region} · ` : ''}计费倍率: <span className='tabular-nums'>{n.trafficMultiplier}x</span>
                       </div>
                     </div>
                   </div>
@@ -390,7 +390,7 @@ export function DashboardPage({ onNavigate }: { onNavigate: (p: PageKey) => void
                         {new Date(r.createdAt).toLocaleString('zh-CN')}
                       </span>
                     </div>
-                    <span className='font-mono'>{formatBytes(r.usedBytes)}</span>
+                    <span className='tabular-nums'>{formatBytes(r.usedBytes)}</span>
                   </div>
                 ))}
               </div>

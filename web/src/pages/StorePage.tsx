@@ -160,7 +160,7 @@ export function StorePage() {
         </div>
         <div className='bg-card flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm'>
           <span className='text-muted-foreground'>当前余额</span>
-          <span className='font-mono text-sm font-bold'>{formatCents(user?.balanceCents ?? 0)}</span>
+          <span className='text-sm font-bold tabular-nums'>{formatCents(user?.balanceCents ?? 0)}</span>
         </div>
       </div>
 
@@ -198,7 +198,7 @@ export function StorePage() {
                 {p.badge && <Badge>{p.badge}</Badge>}
               </div>
               <div className='mt-3 flex items-baseline gap-1'>
-                <span className='font-mono text-3xl font-bold'>{formatCents(p.priceCents)}</span>
+                <span className='text-3xl font-bold tabular-nums'>{formatCents(p.priceCents)}</span>
                 <span className='text-muted-foreground text-xs'>
                   / {p.durationDays > 0 ? `${p.durationDays} 天` : '长期有效'}
                 </span>
@@ -252,9 +252,9 @@ export function StorePage() {
             <tbody className='divide-y'>
               {orders.map((o) => (
                 <tr key={o.id}>
-                  <td className='py-2.5 font-mono'>{o.orderNo}</td>
+                  <td className='py-2.5 tabular-nums'>{o.orderNo}</td>
                   <td className='py-2.5'>{CHANNEL_LABELS[o.paymentChannel] || o.paymentChannel}</td>
-                  <td className='py-2.5 font-mono font-semibold'>{formatCents(o.amountCents)}</td>
+                  <td className='py-2.5 font-semibold tabular-nums'>{formatCents(o.amountCents)}</td>
                   <td className='py-2.5'>
                     <Badge variant={o.status === 'paid' ? 'success' : o.status === 'pending' ? 'warning' : 'secondary'}>
                       {o.status === 'paid' ? '已支付' : o.status === 'pending' ? '待支付' : o.status}

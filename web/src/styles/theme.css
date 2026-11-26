@@ -2,7 +2,14 @@
 
 @theme inline {
   --font-sans: var(--font-ui-sans);
-  --font-mono: var(--font-ui-mono);
+  --font-public-sans: 'Public Sans Variable', 'Public Sans', sans-serif;
+  --font-serif:
+    'Lora Variable', 'Lora', 'Source Serif Pro', 'Source Serif 4',
+    'Noto Serif SC', 'Noto Serif TC', 'Noto Serif JP', 'Noto Serif KR',
+    'Source Han Serif SC', 'Source Han Serif TC', 'Source Han Serif',
+    'Songti SC', 'STSong', 'STSongti-SC-Regular', 'PingFang SC', 'SimSun',
+    'NSimSun', '宋体', 'FangSong', '仿宋', 'KaiTi', '楷体', Georgia,
+    'Times New Roman', Cambria, 'Liberation Serif', serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -53,11 +60,8 @@
 :root {
   --radius: 0.75rem;
   --app-header-height: 3.15rem;
-  --font-ui-sans:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  --font-ui-mono:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', 'Microsoft YaHei',
-    monospace;
+  /* Auto starts with pure browser sans-serif (aligned with QuantumNous/new-api). */
+  --font-ui-sans: sans-serif;
   --font-body: var(--font-ui-sans);
 
   --background: oklch(0.992 0 0);

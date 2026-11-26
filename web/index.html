@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,18 +8,22 @@
     <script>
       ;(function () {
         try {
+          var root = document.documentElement
           var mode = localStorage.getItem('subui-theme-mode') || 'system'
           var dark =
             mode === 'dark' ||
             (mode === 'system' &&
               window.matchMedia('(prefers-color-scheme: dark)').matches)
-          if (dark) document.documentElement.classList.add('dark')
+          if (dark) root.classList.add('dark')
           var preset = localStorage.getItem('subui-theme-preset') || 'default'
-          var radius = localStorage.getItem('subui-theme-radius') || 'lg'
+          var font = localStorage.getItem('subui-theme-font') || 'default'
+          var radius = localStorage.getItem('subui-theme-radius') || 'default'
           var scale = localStorage.getItem('subui-theme-scale') || 'default'
-          document.documentElement.setAttribute('data-theme-preset', preset)
-          document.documentElement.setAttribute('data-theme-radius', radius)
-          document.documentElement.setAttribute('data-theme-scale', scale)
+          var resolvedFont = font === 'default' ? (preset === 'anthropic' ? 'serif' : 'system') : font
+          if (preset && preset !== 'default') root.setAttribute('data-theme-preset', preset)
+          root.setAttribute('data-theme-font', resolvedFont)
+          if (radius && radius !== 'default') root.setAttribute('data-theme-radius', radius)
+          if (scale && scale !== 'default') root.setAttribute('data-theme-scale', scale)
         } catch (e) {}
       })()
     </script>

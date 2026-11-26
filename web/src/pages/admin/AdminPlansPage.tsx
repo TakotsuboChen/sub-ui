@@ -183,13 +183,13 @@ export function AdminPlansPage() {
             <CardContent className='space-y-3 text-sm'>
               <div className='flex justify-between'>
                 <span className='text-muted-foreground'>价格 / 时长</span>
-                <span className='font-mono font-semibold'>
+                <span className='font-semibold tabular-nums'>
                   {formatCents(p.priceCents)} / {p.durationDays} 天
                 </span>
               </div>
               <div className='flex justify-between'>
                 <span className='text-muted-foreground'>周期流量</span>
-                <span className='font-mono'>{p.quotaBytes > 0 ? formatBytes(p.quotaBytes) : '无限'}</span>
+                <span className='tabular-nums'>{p.quotaBytes > 0 ? formatBytes(p.quotaBytes) : '无限'}</span>
               </div>
               <div className='flex justify-end gap-2 pt-2'>
                 <Button
@@ -248,7 +248,7 @@ export function AdminPlansPage() {
                 <tr key={c.id}>
                   <td className='py-2 font-mono font-semibold'>{c.code}</td>
                   <td className='py-2'>{c.rewardType}</td>
-                  <td className='text-muted-foreground py-2 font-mono'>{c.batchNo}</td>
+                  <td className='text-muted-foreground py-2 tabular-nums'>{c.batchNo}</td>
                   <td className='py-2'>
                     <Badge variant={c.usedByUserId ? 'secondary' : 'success'}>
                       {c.usedByUserId ? `已用 (UID ${c.usedByUserId})` : '未使用'}
@@ -318,7 +318,7 @@ export function AdminPlansPage() {
             <Label>允许节点 ID 列表 JSON（[] 表示全部启用节点）</Label>
             <Input value={form.nodeIdsJson} onChange={(e) => setForm({ ...form, nodeIdsJson: e.target.value })} />
           </div>
-          <label className='flex items-center justify-between text-xs'>
+          <label className='flex items-center justify-between text-sm'>
             <span>上架销售</span>
             <Switch checked={form.enabled} onCheckedChange={(v) => setForm({ ...form, enabled: v })} />
           </label>

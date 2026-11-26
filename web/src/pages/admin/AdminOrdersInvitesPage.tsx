@@ -120,7 +120,7 @@ export function AdminOrdersInvitesPage() {
                       {inv.code} <Copy className='size-3' />
                     </button>
                   </td>
-                  <td className='py-2 font-mono'>
+                  <td className='py-2 tabular-nums'>
                     {inv.usedCount} / {inv.maxUses || '∞'}
                   </td>
                   <td className='py-2'>
@@ -164,10 +164,10 @@ export function AdminOrdersInvitesPage() {
             <tbody className='divide-y'>
               {orders.map((o) => (
                 <tr key={o.id}>
-                  <td className='py-2 font-mono'>{o.orderNo}</td>
-                  <td className='py-2 font-mono'>{o.userId}</td>
+                  <td className='py-2 tabular-nums'>{o.orderNo}</td>
+                  <td className='py-2 tabular-nums'>{o.userId}</td>
                   <td className='py-2'>{o.paymentChannel}</td>
-                  <td className='py-2 font-mono font-semibold'>{formatCents(o.amountCents)}</td>
+                  <td className='py-2 font-semibold tabular-nums'>{formatCents(o.amountCents)}</td>
                   <td className='py-2'>
                     <Badge variant={o.status === 'paid' ? 'success' : 'warning'}>{o.status}</Badge>
                   </td>

@@ -154,7 +154,7 @@ export function AdminUsersPage() {
                     <div className='font-semibold'>
                       {u.username} {u.role === 'admin' && <Badge className='ml-1'>Admin</Badge>}
                     </div>
-                    <div className='text-muted-foreground font-mono text-xs'>{u.email || u.remark || '—'}</div>
+                    <div className='text-muted-foreground text-xs'>{u.email || u.remark || '—'}</div>
                   </td>
                   <td className='py-2.5'>
                     <Badge
@@ -169,11 +169,11 @@ export function AdminUsersPage() {
                       {u.status}
                     </Badge>
                   </td>
-                  <td className='py-2.5 font-mono'>
+                  <td className='py-2.5 tabular-nums'>
                     {formatBytes(u.usedBytes)} / {u.quotaBytes > 0 ? formatBytes(u.quotaBytes) : '∞'}
                   </td>
                   <td className='py-2.5'>{formatUnixDate(u.expiresAt)}</td>
-                  <td className='py-2.5 font-mono'>{formatCents(u.balanceCents)}</td>
+                  <td className='py-2.5 tabular-nums'>{formatCents(u.balanceCents)}</td>
                   <td className='py-2.5 text-right'>
                     <div className='flex justify-end gap-1'>
                       <Button size='sm' variant='outline' onClick={() => void provision(u.id)} title='同步下发至 S-UI 节点'>

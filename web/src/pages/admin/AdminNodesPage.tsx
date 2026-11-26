@@ -200,7 +200,7 @@ export function AdminNodesPage() {
               </div>
               <Badge variant={n.onlineStatus === 'online' ? 'success' : 'secondary'}>{n.onlineStatus}</Badge>
             </CardHeader>
-            <CardContent className='space-y-3 text-xs'>
+            <CardContent className='space-y-3 text-sm'>
               <div className='flex flex-wrap gap-2'>
                 {n.region && <Badge variant='outline'>标签: {n.region}</Badge>}
                 <Badge variant='outline'>前缀: {n.namePrefix || '无'}</Badge>
@@ -341,7 +341,7 @@ export function AdminNodesPage() {
             </div>
           )}
 
-          <div className='grid grid-cols-2 gap-3 rounded-lg border p-3 text-xs sm:grid-cols-4'>
+          <div className='grid grid-cols-2 gap-3 rounded-lg border p-3 text-sm sm:grid-cols-4'>
             <label className='flex items-center justify-between gap-2'>
               <span>启用节点</span>
               <Switch checked={editing.enabled ?? true} onCheckedChange={(v) => setEditing({ ...editing, enabled: v })} />
@@ -373,7 +373,7 @@ export function AdminNodesPage() {
         maxWidth='max-w-2xl'
       >
         {inspectNode && (
-          <div className='space-y-4 text-xs'>
+          <div className='space-y-4 text-sm'>
             <div>
               <p className='mb-2 font-semibold'>入站列表（填写节点配置中的 defaultInboundsJson 时参考 ID）</p>
               <div className='flex flex-wrap gap-2'>

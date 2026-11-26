@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import '@fontsource-variable/public-sans';
+@import '@fontsource-variable/lora';
 @import './theme.css';
 @import './theme-presets.css';
 
@@ -20,4 +22,11 @@
   [role='button']:not(:disabled) {
     cursor: pointer;
   }
+}
+
+/* Tabular numbers for data-heavy contexts (aligned with NewAPI) */
+[data-slot='table'] td,
+table td,
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }

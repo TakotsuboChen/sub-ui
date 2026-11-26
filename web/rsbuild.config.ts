@@ -25,7 +25,7 @@ export default defineConfig(({ envMode }) => {
   const appVersion = resolveAppVersion()
 
   return {
-    plugins: [pluginReact(), pluginTailwindcss()],
+    plugins: [pluginReact(), pluginTailwindcss({ optimize: false })],
     source: {
       entry: {
         index: './src/main.tsx',

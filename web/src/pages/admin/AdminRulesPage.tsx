@@ -109,7 +109,7 @@ export function AdminRulesPage() {
                 <Badge variant='outline'>{p.slug}</Badge>
               </div>
             </CardHeader>
-            <CardContent className='flex items-center justify-between pt-2 text-xs'>
+            <CardContent className='flex items-center justify-between pt-2 text-sm'>
               <span className='text-muted-foreground'>分类: {p.category}</span>
               <div className='flex gap-2'>
                 <Button size='sm' variant='outline' onClick={() => setEditingPreset(p)}>
@@ -173,7 +173,7 @@ export function AdminRulesPage() {
               onChange={(e) => setIniForm({ ...iniForm, iniContent: e.target.value })}
             />
           </div>
-          <label className='flex items-center justify-between text-xs'>
+          <label className='flex items-center justify-between text-sm'>
             <span>设为默认预设</span>
             <Switch checked={iniForm.isDefault} onCheckedChange={(v) => setIniForm({ ...iniForm, isDefault: v })} />
           </label>
@@ -191,7 +191,7 @@ export function AdminRulesPage() {
                 <Label>名称</Label>
                 <Input value={editingPreset.name} onChange={(e) => setEditingPreset({ ...editingPreset, name: e.target.value })} />
               </div>
-              <label className='flex items-center justify-between rounded border px-3 text-xs'>
+              <label className='flex items-center justify-between rounded border px-3 text-sm'>
                 <span>设为全站默认</span>
                 <Switch checked={editingPreset.isDefault} onCheckedChange={(v) => setEditingPreset({ ...editingPreset, isDefault: v })} />
               </label>
